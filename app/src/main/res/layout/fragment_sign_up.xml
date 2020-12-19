@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:focusableInTouchMode="true"
+    tools:context=".view.SignUpFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLSignUpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/IWSignUpPlusLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/pluslogo_foreground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/TWSignUplogoTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/TWSignUplogoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensansextrabolditalic"
+                android:gravity="center"
+                android:text="@string/budget"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="30sp"
+                android:textStyle="italic|bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.219"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="1dp"
+            app:cardMaxElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CLSignUpTitle"
+
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.261">
+
+                <TextView
+                    android:id="@+id/TWRegisterTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensansitalic"
+                    android:gravity="center"
+                    android:text="@string/register"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILRegisterFirstName"
+                    style="@style/modifiedTextInputLayout"
+                    app:hintTextColor="@color/backgroundColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TWRegisterTitle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ETRegisterFirstName"
+                        style="@style/modifiedEditText"
+                        android:autofillHints=""
+                        android:backgroundTint="@color/colorPrimary"
+                        android:drawableStart="@drawable/ic_baseline_person_24"
+                        android:hint="@string/register_first_name_hint"
+                        android:inputType="textCapSentences"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILRegisterLastName"
+                    style="@style/modifiedTextInputLayout"
+                    app:hintTextColor="@color/backgroundColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TILRegisterFirstName">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ETRegisterLastName"
+                        style="@style/modifiedEditText"
+                        android:autofillHints=""
+                        android:backgroundTint="@color/colorPrimary"
+                        android:drawableStart="@drawable/ic_baseline_person_outline_24"
+                        android:hint="@string/register_last_name_hint"
+                        android:inputType="textCapSentences"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILRegisterEmail"
+                    style="@style/modifiedTextInputLayout"
+                    app:hintTextColor="@color/backgroundColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TILRegisterLastName">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ETRegisterEmail"
+                        style="@style/modifiedEditText"
+                        android:autofillHints=""
+                        android:backgroundTint="@color/colorPrimary"
+                        android:drawableStart="@drawable/ic_baseline_email_24"
+                        android:hint="@string/login_email_hint"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILRegisterPassword"
+                    style="@style/modifiedTextInputLayout"
+                    app:hintTextColor="@color/backgroundColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TILRegisterEmail">
+
+                    <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                        android:id="@+id/ETRegisterPassword"
+                        style="@style/modifiedEditTextPassword"
+                        android:autofillHints=""
+                        android:backgroundTint="@color/colorPrimary"
+                        android:hint="@string/login_password_hint"
+                        android:inputType="textPassword"
+                        app:drawable_hide="@drawable/ic_baseline_remove_red_eye_24"
+                        app:drawable_show="@drawable/ic_outline_remove_red_eye_24" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILRegisterConfirmationPassword"
+                    style="@style/modifiedTextInputLayout"
+                    app:hintTextColor="@color/backgroundColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TILRegisterPassword">
+
+                    <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                        android:id="@+id/ETRegisterConfirmationPassword"
+                        style="@style/modifiedEditTextPassword"
+                        android:autofillHints=""
+                        android:backgroundTint="@color/colorPrimary"
+                        android:hint="@string/register_confirmation_password_hint"
+                        android:inputType="textPassword"
+                        app:drawable_hide="@drawable/ic_baseline_remove_red_eye_24"
+                        app:drawable_show="@drawable/ic_outline_remove_red_eye_24" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/BTNRegister"
+                    style="@style/loginButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/sign_up"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TILRegisterConfirmationPassword" />
+
+                <TextView
+                    android:id="@+id/TWReturnLoginText"
+                    style="@style/parent"
+                    android:fontFamily="@font/opensanslight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="@string/already_have_an_account_sign_in"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="11sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/BTNRegister"
+                    app:layout_constraintTop_toBottomOf="@+id/BTNRegister">
+
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/activity_main_bottom_navigation_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph"
+        >
+
+    </fragment>
+
+    <!--com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/activity_main_bottom_navigation_view"
+        style=  "@style/BottomNavigation"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/colorPrimary"
+        app:menu="@menu/bottom_menu_nav"
+        /-->
+    <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:padding="5dp"
+        app:bnc_mode="spread"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/c_item_groups"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/bubble1ColorDark"
+            app:bt_colorInactive="@color/bubble1ColorDark"
+            app:bt_icon="@drawable/ic_baseline_people_alt_24"
+            app:bt_titleSize="10sp"
+            app:bt_title="Groups" />
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/c_item_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/bubble2ColorDark"
+            app:bt_colorInactive="@color/bubble2ColorDark"
+            app:bt_icon="@drawable/ic_baseline_notifications_24"
+            app:bt_titleSize="10sp"
+            app:bt_title="Notifications" />
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/c_item_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/bubble3ColorDark"
+            app:bt_colorInactive="@color/bubble3ColorDark"
+            app:bt_icon="@drawable/ic_baseline_more_horiz_24"
+            app:bt_titleSize="10sp"
+            app:bt_title="More" />
+
+
+        <!-- Add more child items here - max upto 5 -->
+
+    </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.474" />
+</androidx.constraintlayout.widget.ConstraintLayout>

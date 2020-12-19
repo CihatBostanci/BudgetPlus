@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4a154b</color>
+    <color name="colorPrimaryDark">#4a154b</color>
+    <color name="colorAccent">#03A9F4</color>
+
+    <color name="whiteTextColor">#ffffff</color>
+    <color name="primaryTextColor">#2661FA</color>
+    <color name="loginBkColor">#f0f0f0</color>
+
+    <!--colros for card-->
+    <color name="whiteCardColor">#fff</color>
+    <color name="verificationBackGroundColor">#0288d1</color>
+    <color name="verificationBackGroundEditTextColor">#e3f2fd</color>
+    <color name="black">#000000</color>
+
+
+
+    <!-- Color Bubbles -->
+    <color name="bubble0ColorLight">#fce4ec</color>
+    <!--<-color name="bubble1ColorDark">#f8bbd0</color>-->
+    <color name="bubble0ColorDark">#64c3eb</color>
+
+
+    <color name="bubble1ColorLight">#e0f7fa</color>
+    <!--<color name="bubble2ColorDark">#b2ebf2</color>-->
+    <color name="bubble1ColorDark">#5bb381</color>
+
+    <color name="bubble2ColorLight">#e8f5e9</color>
+    <!--<color name="bubble3ColorDark">#c8e6c9</color>-->
+    <color name="bubble2ColorDark">#e3b34c</color>
+
+    <color name="bubble3ColorLight">#efebe9</color>
+    <!--<color name="bubble4ColorDark">#d7ccc8</color>-->
+    <color name="bubble3ColorDark">#ce375c</color>
+
+    <color name="backgroundColor">#4a154b</color>
+    <color name="backgroundLightColor">#9c4dcc</color>
+
+    <color name="backgroundGrayColor">#f2f2f2</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="errorColor">#d0021b</color>
+
+</resources>

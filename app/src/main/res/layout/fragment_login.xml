@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:focusableInTouchMode="true"
+    tools:context=".view.LoginFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLLoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/IWLoginPlusLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/pluslogo_foreground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/TWLoginlogoTitle"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/TWLoginlogoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensansextrabolditalic"
+                android:gravity="center"
+                android:text="@string/budget"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="40sp"
+                android:textStyle="italic|bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.219"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="1dp"
+            app:cardMaxElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CLLoginTitle"
+
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/cardviewshape"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/TWLoginTitle"
+                    style="@style/parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/loginViewsMargin"
+                    android:fontFamily="@font/opensansitalic"
+                    android:gravity="center"
+                    android:text="@string/login"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILLoginEmail"
+                    style="@style/modifiedTextInputLayout"
+                    app:hintTextColor="@color/backgroundColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TWLoginTitle"
+                    app:layout_constraintBottom_toTopOf="@+id/TILLoginPassword"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ETLoginEmail"
+                        style="@style/modifiedEditText"
+                        android:autofillHints=""
+                        android:drawableStart="@drawable/ic_baseline_email_24"
+                        android:hint="@string/login_email_hint"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="@color/colorPrimary"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILLoginPassword"
+                    style="@style/modifiedTextInputLayout"
+                    app:hintTextColor="@color/backgroundColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TILLoginEmail"
+                    app:layout_constraintBottom_toTopOf="@+id/TWForgetText">
+
+                    <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                        android:id="@+id/ETLoginPassword"
+                        style="@style/modifiedEditTextPassword"
+                        app:drawable_show="@drawable/ic_outline_remove_red_eye_24"
+                        app:drawable_hide="@drawable/ic_baseline_remove_red_eye_24"
+                        android:autofillHints=""
+                        android:hint="@string/login_password_hint"
+                        android:inputType="textPassword"
+                        android:backgroundTint="@color/colorPrimary"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/TWForgetText"
+                    style="@style/parent"
+                    android:fontFamily="@font/opensanslightitalic"
+                    android:gravity="end"
+                    android:padding="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/forget_password_login"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="@dimen/newsMoreTextSize"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/TILLoginPassword"
+                    app:layout_constraintStart_toStartOf="@+id/TILLoginPassword"
+                    app:layout_constraintTop_toBottomOf="@+id/TILLoginPassword"
+
+                    />
+
+
+                <Button
+                    android:id="@+id/BTNLogin"
+                    style="@style/loginButton"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/loginViewsMargin"
+                    android:text="@string/login"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TWForgetText" />
+
+                <TextView
+                    android:id="@+id/TWDontHaveAccountText"
+                    style="@style/parent"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:fontFamily="@font/opensanslight"
+                    android:gravity="center"
+                    android:text="@string/login_signup_hint"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="@dimen/newsMoreTextSize"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/BTNLogin" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

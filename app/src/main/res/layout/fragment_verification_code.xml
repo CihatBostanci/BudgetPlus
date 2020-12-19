@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.VerificationCodeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLVerificationCodeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/IWVerificationPlusLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/pluslogo_foreground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/TWVerificationlogoTitle"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/TWVerificationlogoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensansextrabolditalic"
+                android:gravity="center"
+                android:text="@string/budget"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="40sp"
+                android:textStyle="italic|bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.219"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/IWEmailIcon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/CLVerificationCodeTitle"
+            android:background="@drawable/ic_mail_icon_seeklogo_com"
+            android:contentDescription="" />
+
+
+        <TextView
+            android:id="@+id/TWEmailVerificationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Verification Code"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="@color/whiteTextColor"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/IWEmailIcon" />
+
+        <TextView
+            android:id="@+id/TWEmailVerificationDescriptionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Please type the verification code from email."
+            android:fontFamily="@font/opensanslightitalic"
+            android:textColor="@color/whiteTextColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWEmailVerificationTitle" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLVerificationCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWEmailVerificationDescriptionTitle">
+
+            <EditText
+                android:id="@+id/ETVerificationCode1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/verificationedittextshape"
+                android:gravity="center"
+                android:maxEms="15"
+                android:textSize="30sp"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ETVerificationCode2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/verificationedittextshape"
+                android:gravity="center"
+                android:maxEms="15"
+                android:textSize="30sp"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ETVerificationCode1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ETVerificationCode3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/verificationedittextshape"
+                android:gravity="center"
+                android:maxEms="15"
+                android:textSize="30sp"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ETVerificationCode2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ETVerificationCode4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/verificationedittextshape"
+                android:gravity="center"
+                android:maxEms="15"
+                android:textSize="30sp"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ETVerificationCode3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ETVerificationCode5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/verificationedittextshape"
+                android:gravity="center"
+                android:maxEms="15"
+                android:textSize="30sp"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ETVerificationCode4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ETVerificationCode6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/verificationedittextshape"
+                android:gravity="center"
+                android:maxEms="15"
+                android:textSize="30sp"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ETVerificationCode5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:inputType="number" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/BTNVerificationSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/verificationedittextshape"
+            android:text="@string/verify"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CLVerificationCode" />
+        <Button
+            android:id="@+id/BTNSendVerificationAgain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/send_code_again"
+            app:layout_constraintTop_toBottomOf="@+id/BTNVerificationSubmit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/verificationedittextshape"
+
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.budgetplus.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_groupsFragment"
+            app:destination="@id/groupsFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_verificationCodeFragment"
+            app:destination="@id/verificationCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupsFragment"
+        android:name="com.example.budgetplus.view.GroupsFragment"
+        android:label="fragment_groups"
+        tools:layout="@layout/fragment_groups"/>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.budgetplus.view.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification"/>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.budgetplus.view.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account"/>
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.example.budgetplus.view.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.budgetplus.view.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_verificationCodeFragment"
+            app:destination="@id/verificationCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificationCodeFragment"
+        android:name="com.example.budgetplus.view.VerificationCodeFragment"
+        android:label="fragment_verification_code"
+        tools:layout="@layout/fragment_verification_code" >
+        <action
+            android:id="@+id/action_verificationCodeFragment_to_groupsFragment"
+            app:destination="@id/groupsFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+    <action android:id="@+id/action_global_groupsFragment" app:destination="@id/groupsFragment" />
+    <action android:id="@+id/action_global_notificationFragment" app:destination="@id/notificationFragment" />
+    <action android:id="@+id/action_global_accountFragment" app:destination="@id/accountFragment" />
+</navigation>

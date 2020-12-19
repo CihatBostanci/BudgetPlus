@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/groupsFragment"
+        android:title="Home"
+        app:showAsAction="always"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_baseline_people_alt_24"/>
+
+    <item android:id="@+id/notificationFragment"
+        android:title="Explore"
+        app:showAsAction="always"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_baseline_notifications_24"/>
+
+
+    <item android:id="@+id/accountFragment"
+        android:title="More"
+        app:showAsAction="always"
+        android:orderInCategory="3"
+        android:icon="@drawable/ic_baseline_more_horiz_24"/>
+</menu>
