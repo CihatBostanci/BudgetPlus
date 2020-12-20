@@ -76,7 +76,10 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         setTrigger()
 
     }
-
+    private fun setUIInit() {
+        (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = true)
+        binding.BTNLogout.setOnClickListener(this)
+    }
     private fun setBroadCastListener() {
         val CLIENT_METHOD_BROADAST_MESSAGE = "ReceiveMessage"
         getHubConnection().on(
@@ -127,14 +130,8 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
         }
 
-
     }
 
-
-    private fun setUIInit() {
-        (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = true)
-        binding.BTNLogout.setOnClickListener(this)
-    }
 
     companion object {
         /**

@@ -23,9 +23,13 @@ abstract class BaseFragment: Fragment(), ProgressDisplay, IOnBackPressed {
 
     private lateinit var hubConnection: HubConnection
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return TextView(activity).apply {
+            setText(R.string.hello_blank_fragment)
+        }
     }
     fun setCreateHubConnection() {
         hubConnection = HubConnectionBuilder.create(connectionHubUrl).build()
@@ -38,16 +42,6 @@ abstract class BaseFragment: Fragment(), ProgressDisplay, IOnBackPressed {
             throw e
         }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return TextView(activity).apply {
-            setText(R.string.hello_blank_fragment)
-        }
-    }
-
 
     override fun show() {
         if (requireActivity() is ProgressDisplay) {
