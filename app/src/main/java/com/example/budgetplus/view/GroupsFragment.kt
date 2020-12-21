@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.budgetplus.BudgetPlusApplication
@@ -13,7 +15,15 @@ import com.example.budgetplus.MainActivity
 import com.example.budgetplus.R
 import com.example.budgetplus.databinding.FragmentGroupsBinding
 import com.example.budgetplus.manager.SharedPreferencesManager.set
+import com.example.budgetplus.model.response.GroupDetailsResponseModel
+import com.example.budgetplus.model.response.UserInfoResponseModel
+import com.example.budgetplus.utils.Resource
+import com.example.budgetplus.utils.Status
 import com.example.budgetplus.utils.TOKEN
+import com.example.budgetplus.viewmodel.AccountViewModel
+import com.example.budgetplus.viewmodel.GroupViewModel
+import com.example.budgetplus.viewmodel.datatransferviewmodel.GroupDetailsTransferViewModel
+import com.example.budgetplus.viewmodel.datatransferviewmodel.UserInfoTransferViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,6 +44,12 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     private var param1: String? = null
     private var param2: String? = null
 
+
+    private lateinit var accountViewModel: AccountViewModel
+    private lateinit var groupViewModel: GroupViewModel
+    private lateinit var _userInfoTransferViewModel: UserInfoTransferViewModel
+    private lateinit var _groupDetailsTransferViewModel: GroupDetailsTransferViewModel
+
     //Navigation Component controller
     private lateinit var navController: NavController
 
@@ -50,6 +66,13 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
+        groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
+
+        _userInfoTransferViewModel = ViewModelProvider(requireActivity())[UserInfoTransferViewModel::class.java]
+        _groupDetailsTransferViewModel = ViewModelProvider(requireActivity())[GroupDetailsTransferViewModel::class.java]
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -71,11 +94,22 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         //NavController of Navigation Component
         navController = Navigation.findNavController(view)
         setUIInit()
+        getUserInfoService()
+        getGroupDetailsService()
         setCreateHubConnection()
         setBroadCastListener()
         setTrigger()
 
     }
+
+    private fun getGroupDetailsService() {
+        groupViewModel.getGroupDetails().observe(viewLifecycleOwner,_groupDetailsObserver)
+    }
+
+    private fun getUserInfoService() {
+        accountViewModel.getUserInfos().observe(viewLifecycleOwner,_userObserver)
+    }
+
     private fun setUIInit() {
         (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = true)
         binding.BTNLogout.setOnClickListener(this)
@@ -181,6 +215,44 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = false)
         BudgetPlusApplication.sharedPreferencesManager[TOKEN] = ""
         navController.navigate(R.id.action_global_loginFragment)
+    }
+
+    private val _userObserver = Observer<Resource<UserInfoResponseModel>>{
+        when(it.status){
+            Status.SUCCESS-> {
+                hide()
+                it.data?.let { userInfo->
+                    _userInfoTransferViewModel.setUserInfo(userInfo)
+                }
+            }
+            Status.ERROR ->{
+                hide()
+                showToast(it.message)
+
+            }
+            Status.LOADING->{
+                show()
+            }
+        }
+    }
+
+    private val _groupDetailsObserver = Observer<Resource<GroupDetailsResponseModel>>{
+        when(it.status){
+            Status.SUCCESS-> {
+                hide()
+                it.data?.let { groupDetails->
+                   _groupDetailsTransferViewModel.setGroupDetails(groupDetails)
+                }
+            }
+            Status.ERROR ->{
+                hide()
+                showToast(it.message)
+
+            }
+            Status.LOADING->{
+                show()
+            }
+        }
     }
 
 }

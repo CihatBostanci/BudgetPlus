@@ -6,7 +6,7 @@ import com.example.budgetplus.model.request.LoginRequestBodyModel
 import com.example.budgetplus.model.request.RegisterRequestBodyModel
 import retrofit2.http.Body
 
-class AccountRepository : BaseRepository() {
+object AccountRepository : BaseRepository() {
 
     private val apiAccountService = RetrofilBuilder.apiAccountService
 

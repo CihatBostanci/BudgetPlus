@@ -3,6 +3,7 @@ package com.example.budgetplus
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.budgetplus.databinding.ActivityMainBinding
 import com.example.budgetplus.repository.RetrofilBuilder
+import com.example.budgetplus.utils.ERRORMESSAGE
 import com.example.budgetplus.utils.IOnBackPressed
 import com.example.budgetplus.view.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -67,6 +69,10 @@ class MainActivity : BaseActivity() {
 
 
         }
+    }
+
+    fun showToast(message:String?){
+        Toast.makeText(this, message ?: ERRORMESSAGE, Toast.LENGTH_LONG).show()
     }
 
 

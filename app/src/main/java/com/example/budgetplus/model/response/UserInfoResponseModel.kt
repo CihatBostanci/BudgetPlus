@@ -14,4 +14,8 @@ data class UserInfoResponseModel(
     var shortName: String,
     @SerializedName("userId")
     var userId: Int
-)
+) {
+    override fun toString(): String {
+        return "UserInfoResponseModel(email='$email', firstName='$firstName', lastName='$lastName', shortName='$shortName', userId=$userId)"
+    }
+}

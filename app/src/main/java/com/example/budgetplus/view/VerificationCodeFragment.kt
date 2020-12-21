@@ -2,28 +2,21 @@ package com.example.budgetplus.view
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity.apply
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.budgetplus.BudgetPlusApplication
 import com.example.budgetplus.R
 import com.example.budgetplus.databinding.FragmentVerificationCodeBinding
-import com.example.budgetplus.manager.SharedPreferencesManager.set
 import com.example.budgetplus.model.request.ConfirmRequestBodyModel
 import com.example.budgetplus.model.request.LoginRequestBodyModel
 import com.example.budgetplus.utils.GenericTextWatcher
 import com.example.budgetplus.utils.SENDVERIFYINFO
 import com.example.budgetplus.utils.Status
-import com.example.budgetplus.utils.TOKEN
 import com.example.budgetplus.viewmodel.AccountViewModel
 
 
@@ -181,15 +174,14 @@ class VerificationCodeFragment : BaseFragment(), View.OnClickListener {
 
                                 Status.SUCCESS -> {
                                     hide()
-                                    Toast.makeText(requireContext(), SENDVERIFYINFO, Toast.LENGTH_LONG)
-                                        .show()
+                                    showToast(SENDVERIFYINFO)
+
                                 }
                                 Status.LOADING -> {
                                     show()}
                                 Status.ERROR -> {
                                     hide()
-                                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                                        .show()
+                                    showToast(it.message)
                                 }
 
                             }
@@ -221,20 +213,13 @@ class VerificationCodeFragment : BaseFragment(), View.OnClickListener {
                             when (it.status) {
                                 Status.ERROR -> {
                                     hide()
-                                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                                        .show()
+                                    showToast(it.message)
 
                                 }
                                 Status.SUCCESS -> {
                                     it?.let {
                                         it.data?.let { loginSuccessReturnModel ->
-                                            hide()
-                                            Toast.makeText(
-                                                requireContext(),
-                                                it.toString(),
-                                                Toast.LENGTH_LONG
-                                            )
-                                                .show()
+                                            showToast(it.toString())
                                             navController.navigate(R.id.action_verificationCodeFragment_to_groupsFragment)
                                         }
                                     }

@@ -218,11 +218,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                     when (it.status) {
                         Status.ERROR -> {
                             hide()
-                            Toast.makeText(
-                                requireContext(),
-                                it.message,
-                                Toast.LENGTH_LONG
-                            ).show()
+                            showToast(it.message)
                         }
                         Status.LOADING -> {
                             show()
@@ -231,11 +227,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                             hide()
                             binding.CLForgetVerificationCode.visibility = View.VISIBLE
                            // controlResetCodeService()
-                            Toast.makeText(
-                                requireContext(),
-                                CHECKEMAILPASSWORDMESSAGE,
-                                Toast.LENGTH_LONG
-                            ).show()
+                            showToast(CHECKEMAILPASSWORDMESSAGE)
 
                         }
 
@@ -257,11 +249,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                 when(it.status){
                     Status.SUCCESS -> {
                         hide()
-                        Toast.makeText(
-                            requireContext(),
-                            CHANGEPASSWORDMESSAGE,
-                            Toast.LENGTH_LONG
-                        ).show()
+                        showToast(CHANGEPASSWORDMESSAGE)
                         binding.CLForgetVerificationCode.visibility = View.GONE
                         binding.TILForgetPassword.visibility = View.VISIBLE
                         binding.TILForgetConfirmationPassword.visibility =  View.VISIBLE
@@ -270,11 +258,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                     }
                     Status.ERROR -> {
                         hide()
-                        Toast.makeText(
-                            requireContext(),
-                            WRONGMESSAGE,
-                            Toast.LENGTH_LONG
-                        ).show()
+                        showToast(WRONGMESSAGE)
 
                     }
                     Status.LOADING -> {
@@ -295,19 +279,11 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                         }
                         Status.ERROR -> {
                             hide()
-                            Toast.makeText(
-                                requireContext(),
-                                ERRORMESSAGE,
-                                Toast.LENGTH_LONG
-                            ).show()
+                            showToast(ERRORMESSAGE)
                         }
                         Status.SUCCESS -> {
                             hide()
-                            Toast.makeText(
-                                requireContext(),
-                                SUCCESSMESSAGE,
-                                Toast.LENGTH_LONG
-                            ).show()
+                            showToast(SUCCESSMESSAGE)
                             navController.navigate(R.id.action_global_loginFragment)
 
                         }

@@ -18,8 +18,6 @@ import retrofit2.HttpException
 
 class AccountViewModel : BaseViewModel() {
 
-    //Repository Instance
-    private val accountRepository = AccountRepository()
 
     fun accountRegister(
         registerRequestBodyModel: RegisterRequestBodyModel
@@ -28,7 +26,7 @@ class AccountViewModel : BaseViewModel() {
         emit(Resource.loading(data = null))
 
         try {
-            val dataModel = accountRepository.registerAccount(
+            val dataModel = AccountRepository.registerAccount(
 
             registerRequestBodyModel
         )
@@ -61,7 +59,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.loginAccount(
+            val dataModel = AccountRepository.loginAccount(
                 loginRequestBodyModel,
                 token
             )
@@ -106,7 +104,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.authenticateAccount(
+            val dataModel = AccountRepository.authenticateAccount(
                 loginRequestBodyModel
             )
             emit(
@@ -149,7 +147,7 @@ class AccountViewModel : BaseViewModel() {
     ) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.accountConfirmEmail(
+            val dataModel = AccountRepository.accountConfirmEmail(
                 confirmRequestBodyModel
             )
             emit(
@@ -193,7 +191,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.updateVerificationCode(
+            val dataModel = AccountRepository.updateVerificationCode(
                 loginRequestBodyModel
             )
             emit(
@@ -238,7 +236,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.resetPassword(
+            val dataModel = AccountRepository.resetPassword(
                 email
             )
             emit(
@@ -279,7 +277,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.controlResetCode(
+            val dataModel = AccountRepository.controlResetCode(
                 email, resetCode
             )
             emit(
@@ -322,7 +320,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.changePassword(
+            val dataModel = AccountRepository.changePassword(
                changePasswordRequestBodyModel
             )
             emit(
@@ -363,7 +361,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = accountRepository.getUserInfo()
+            val dataModel = AccountRepository.getUserInfo()
             emit(
                 Resource.success(
                     gson.fromJson(

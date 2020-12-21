@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.budgetplus.MainActivity
 import com.example.budgetplus.R
 import com.example.budgetplus.utils.IOnBackPressed
 import com.example.budgetplus.utils.ProgressDisplay
@@ -61,4 +62,8 @@ abstract class BaseFragment: Fragment(), ProgressDisplay, IOnBackPressed {
     }
 
     fun getHubConnection() = hubConnection
+
+    fun showToast(message:String?){
+        (requireActivity() as MainActivity).showToast(message)
+    }
 }

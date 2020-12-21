@@ -15,8 +15,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +29,7 @@ import com.example.budgetplus.model.request.LoginRequestBodyModel
 import com.example.budgetplus.model.response.LoginSuccessResponseModel
 import com.example.budgetplus.utils.*
 import com.example.budgetplus.viewmodel.AccountViewModel
-import kotlinx.android.synthetic.*
+import com.example.budgetplus.viewmodel.GroupViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,8 +78,6 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,10 +104,12 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
         val token = BudgetPlusApplication.sharedPreferencesManager[TOKEN, ""]
         if (token != null) {
             if (token.isNotEmpty()) {
+                tokenStr = token
                 navController.navigate(R.id.action_loginFragment_to_groupsFragment)
             }
         }
     }
+
 
     private fun setSpannable() {
         binding.TWDontHaveAccountText.highlightColor = requireActivity().getColor(R.color.transparent)
@@ -167,8 +165,7 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
                     when (it.status) {
                         Status.ERROR -> {
                             hide()
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                                .show()
+                            showToast(it.message)
                         }
                         Status.LOADING -> {
                             show()
@@ -209,8 +206,7 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
                         when (it.status) {
                             Status.ERROR -> {
                                 hide()
-                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                                    .show()
+                                showToast(it.message)
 
                             }
                             Status.SUCCESS -> {

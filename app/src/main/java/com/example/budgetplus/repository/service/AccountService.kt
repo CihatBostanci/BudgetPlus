@@ -52,6 +52,7 @@ interface AccountService {
     ): ResponseBody
 
     @GET(GETUSERINFOSERVICE)
-    suspend fun getUserInfo():ResponseBody
+    suspend fun getUserInfo(
+    ):ResponseBody
 
 }

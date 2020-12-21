@@ -58,7 +58,7 @@ fun isValidPassword(password: String?): Boolean {
 const val TOKEN = "token"
 
 
-//Service Constant
+//Account Service Constant
 const val REGISTERSERVICE = "/Account/Register"
 const val LOGINSERVICE=  "/Account/Login"
 const val AUTHENTICATESERVICE = "/Account/Authenticate"
@@ -68,6 +68,9 @@ const val RESETPASSWORDSERVICE = "/Account/ResetPasswordRequest"
 const val CHANGEPASSWORDSERVICE = "/Account/ChangePassword"
 const val CONTROLRESETCODESERVICE = "/Account/ControlResetCode"
 const val GETUSERINFOSERVICE = "/Account/GetUserInfos"
+
+//Group Service Constant
+const val GETGROUPDETAILSSERVICE = "/Group/GetGroupDetails"
 
 //*****************SERVICE MESSAGE****************************
 const val SUCCESSMESSAGE = "Success"

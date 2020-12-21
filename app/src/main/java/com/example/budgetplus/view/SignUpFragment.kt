@@ -14,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -242,8 +241,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener, IOnBackPressed {
                     when (it.status) {
                         Status.ERROR -> {
                             hide()
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                                .show()
+                            showToast(it.message)
 
                             //code:3 if swagger
                             //toVerificationFragment()
@@ -276,8 +274,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener, IOnBackPressed {
                 when (it.status) {
                     Status.ERROR -> {
                         hide()
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                            .show()
+                        showToast(it.message)
                     }
                     Status.LOADING -> {
                         show()
