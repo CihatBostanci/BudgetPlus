@@ -41,4 +41,7 @@
     <color name="transparent">@android:color/transparent</color>
     <color name="errorColor">#d0021b</color>
 
+    <color name="black_semi_transparent">#B2000000</color>
+
+
 </resources>

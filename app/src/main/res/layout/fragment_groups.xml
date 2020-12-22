@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context=".view.GroupsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,6 +91,39 @@
 
         </TextView>
 
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/multiple_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            fab:fab_addButtonColorNormal="@color/whiteCardColor"
+            fab:fab_addButtonColorPressed="@color/colorPrimary"
+            fab:fab_addButtonPlusIconColor="@color/backgroundLightColor"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            android:layout_marginBottom="?android:attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/whiteCardColor"
+                fab:fab_title="Action A"
+                fab:fab_colorPressed="@color/colorPrimary"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/whiteCardColor"
+                fab:fab_title="Action B"
+                fab:fab_colorPressed="@color/colorPrimary"/>
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
