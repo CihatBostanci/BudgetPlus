@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -26,10 +27,14 @@ import com.example.budgetplus.databinding.FragmentLoginBinding
 import com.example.budgetplus.manager.SharedPreferencesManager.get
 import com.example.budgetplus.manager.SharedPreferencesManager.set
 import com.example.budgetplus.model.request.LoginRequestBodyModel
+import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.LoginSuccessResponseModel
+import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.*
 import com.example.budgetplus.viewmodel.AccountViewModel
 import com.example.budgetplus.viewmodel.GroupViewModel
+import com.example.budgetplus.viewmodel.datatransferviewmodel.GroupDetailsTransferViewModel
+import com.example.budgetplus.viewmodel.datatransferviewmodel.UserInfoTransferViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,7 +64,16 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
+    //For MVVM Service
     private lateinit var accountViewModel: AccountViewModel
+    private lateinit var groupViewModel: GroupViewModel
+
+    //Transfer ViewModel
+    private lateinit var _userInfoTransferViewModel: UserInfoTransferViewModel
+    private lateinit var _groupDetailsTransferViewModel: GroupDetailsTransferViewModel
+
+    private var groupDetailsResponseModel : GroupDetailsResponseModel? = null
+    private var userInfoResponseModel: UserInfoResponseModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +83,11 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
         }
 
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
+        groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
+
+        _userInfoTransferViewModel = ViewModelProvider(requireActivity())[UserInfoTransferViewModel::class.java]
+        _groupDetailsTransferViewModel = ViewModelProvider(requireActivity())[GroupDetailsTransferViewModel::class.java]
+
 
     }
 
@@ -85,8 +104,26 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
 
         //NavController of Navigation Component
         navController = Navigation.findNavController(view)
+        getIntentFromSplashActivity()
         setUIInit()
 
+    }
+    private fun getIntentFromSplashActivity() {
+         groupDetailsResponseModel = requireActivity().intent.getJsonExtra(
+            GROUPDETAILSRESPONSEMODEL,GroupDetailsResponseModel::class.java)
+         userInfoResponseModel = requireActivity().intent.getJsonExtra(
+            USERINFORESPONSEMODEL,UserInfoResponseModel::class.java)
+
+         userInfoResponseModel?.let {
+            _userInfoTransferViewModel.setUserInfo(it)
+         }
+
+        groupDetailsResponseModel?.let {
+            _groupDetailsTransferViewModel.setGroupDetails(it)
+        }
+
+        Log.d(LOGINFRAGMENTTAG, groupDetailsResponseModel.toString() )
+        Log.d(LOGINFRAGMENTTAG, userInfoResponseModel.toString())
     }
 
     private fun setUIInit() {
@@ -108,6 +145,14 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
                 navController.navigate(R.id.action_loginFragment_to_groupsFragment)
             }
         }
+    }
+
+    private fun getGroupDetailsService() {
+            groupViewModel.getGroupDetails().observe(viewLifecycleOwner,_groupDetailsObserver)
+    }
+
+    private fun getUserInfoService() {
+            accountViewModel.getUserInfos().observe(viewLifecycleOwner,_userObserver)
     }
 
 
@@ -179,7 +224,7 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
                                     BudgetPlusApplication.sharedPreferencesManager[TOKEN] = tokenStr
                                     loginSuccessReturnModel?.isEmailConfirmed?.let { isEmailConfirmed ->
                                         if (isEmailConfirmed) {
-                                            navController.navigate(R.id.action_loginFragment_to_groupsFragment)
+                                            getUserInfoService()
                                         } else {
                                             toVerificationFragment()
                                         }
@@ -274,5 +319,45 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
             }
         }
 
+    }
+
+    private val _userObserver = Observer<Resource<UserInfoResponseModel>>{
+        when(it.status){
+            Status.SUCCESS-> {
+                hide()
+                it.data?.let { userInfo->
+                    _userInfoTransferViewModel.setUserInfo(userInfo)
+                }
+                getGroupDetailsService()
+            }
+            Status.ERROR ->{
+                hide()
+                //showToast(it.message)
+
+            }
+            Status.LOADING->{
+                show()
+            }
+        }
+    }
+
+    private val _groupDetailsObserver = Observer<Resource<GroupDetailsResponseModel>>{
+        when(it.status){
+            Status.SUCCESS-> {
+                hide()
+                it.data?.let { groupDetails->
+                    _groupDetailsTransferViewModel.setGroupDetails(groupDetails)
+                }
+                navController.navigate(R.id.action_loginFragment_to_groupsFragment)
+            }
+            Status.ERROR ->{
+                hide()
+                //showToast(it.message)
+
+            }
+            Status.LOADING->{
+                show()
+            }
+        }
     }
 }

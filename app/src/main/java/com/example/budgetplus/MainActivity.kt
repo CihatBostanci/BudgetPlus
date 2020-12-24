@@ -3,6 +3,7 @@ package com.example.budgetplus
 
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -70,11 +71,6 @@ class MainActivity : BaseActivity() {
 
         }
     }
-
-    fun showToast(message:String?){
-        Toast.makeText(this, message ?: ERRORMESSAGE, Toast.LENGTH_LONG).show()
-    }
-
 
     fun setBottomNavigationVisibility(viewVisible: Boolean)
             = if (viewVisible) binding.bottomNavigation.visibility = View.VISIBLE

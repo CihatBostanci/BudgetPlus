@@ -1,10 +1,13 @@
 package com.example.budgetplus
 
+import android.app.Activity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.budgetplus.utils.ERRORMESSAGE
 import com.example.budgetplus.utils.ProgressDisplay
 
 abstract class BaseActivity : AppCompatActivity(), ProgressDisplay{
@@ -18,6 +21,7 @@ abstract class BaseActivity : AppCompatActivity(), ProgressDisplay{
         BudgetPlusApplication.getApplication().setCurrentActivity(this)
     }
     var progressBar: ProgressBar? = null
+
     override fun show() {
         progressBar = findViewById(R.id.progressBar)
         progressBar!!.visibility = View.VISIBLE
@@ -28,5 +32,8 @@ abstract class BaseActivity : AppCompatActivity(), ProgressDisplay{
         progressBar!!.visibility = View.INVISIBLE
     }
 
+    fun showToast(message:String?){
+        Toast.makeText(this, message ?: ERRORMESSAGE, Toast.LENGTH_LONG).show()
+    }
 
 }

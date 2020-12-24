@@ -10,4 +10,8 @@ data class RelatedUser(
     var lastName: String,
     @SerializedName("userId")
     var userId: Int
-)
+) {
+    override fun toString(): String {
+        return "RelatedUser(firstName='$firstName', lastName='$lastName', userId=$userId)"
+    }
+}

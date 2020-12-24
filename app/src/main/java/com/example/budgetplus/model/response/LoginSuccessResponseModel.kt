@@ -34,6 +34,7 @@ data class LoginSuccessResponseModel(
     var token:String? = ""
     ) {
     override fun toString(): String {
-        return super.toString()
+        return "LoginSuccessResponseModel(isLoggedIn=$isLoggedIn, isEmailConfirmed=$isEmailConfirmed, firstName=$firstName, lastName=$lastName, email=$email, shortName=$shortName, userId=$userId, token=$token)"
     }
+
 }

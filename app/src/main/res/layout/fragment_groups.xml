@@ -108,20 +108,33 @@
             >
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/action_a"
+                android:id="@+id/shareLinkAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_baseline_share_24"
                 fab:fab_colorNormal="@color/whiteCardColor"
-                fab:fab_title="Action A"
+                fab:fab_title="Share Link"
+                fab:fab_colorPressed="@color/colorPrimary"
+                />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addExpenseAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_baseline_post_add_24"
+                fab:fab_colorNormal="@color/whiteCardColor"
+                fab:fab_title="Add Expense"
                 fab:fab_colorPressed="@color/colorPrimary"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/action_b"
+                android:id="@+id/AddGroupAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_baseline_group_add_24"
                 fab:fab_colorNormal="@color/whiteCardColor"
-                fab:fab_title="Action B"
+                fab:fab_title="Add Group"
                 fab:fab_colorPressed="@color/colorPrimary"/>
+
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

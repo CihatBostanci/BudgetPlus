@@ -2,6 +2,7 @@ package com.example.budgetplus.model.response
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class UserInfoResponseModel(
     @SerializedName("email")
@@ -14,7 +15,7 @@ data class UserInfoResponseModel(
     var shortName: String,
     @SerializedName("userId")
     var userId: Int
-) {
+):Serializable {
     override fun toString(): String {
         return "UserInfoResponseModel(email='$email', firstName='$firstName', lastName='$lastName', shortName='$shortName', userId=$userId)"
     }

@@ -6,9 +6,13 @@ import retrofit2.HttpException
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+//URL
 const val  baseUrl = "https://bearsbudgetmanwebapi.herokuapp.com/"
 const val connectionHubUrl = "https://bearsbudgetmanwebapi.herokuapp.com/connectHub"
 
+// Intent Constant
+const val  USERINFORESPONSEMODEL = "UserInfo"
+const val GROUPDETAILSRESPONSEMODEL = "GroupDetails"
 //*****************************************************************
 //Api Call Status Type
 enum class Status {

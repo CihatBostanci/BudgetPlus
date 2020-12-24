@@ -9,4 +9,8 @@ data class HTTPErrorModel(
     var message:String? = "Error Occurred"
 ){
     constructor():this("","")
+
+    override fun toString(): String {
+        return "HTTPErrorModel(code=$code, message=$message)"
+    }
 }

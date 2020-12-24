@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +19,6 @@ import com.example.budgetplus.databinding.FragmentGroupsBinding
 import com.example.budgetplus.manager.SharedPreferencesManager.set
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.UserInfoResponseModel
-import com.example.budgetplus.utils.Resource
-import com.example.budgetplus.utils.Status
 import com.example.budgetplus.utils.TOKEN
 import com.example.budgetplus.viewmodel.AccountViewModel
 import com.example.budgetplus.viewmodel.GroupViewModel
@@ -40,13 +40,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class GroupsFragment : BaseFragment(), View.OnClickListener {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
+    private val GROUPSFRAGMENTTAG =  "GROUPSTAG"
 
+    //For MVVM ViewModel
     private lateinit var accountViewModel: AccountViewModel
     private lateinit var groupViewModel: GroupViewModel
+
+    //Transfer ViewModel
     private lateinit var _userInfoTransferViewModel: UserInfoTransferViewModel
     private lateinit var _groupDetailsTransferViewModel: GroupDetailsTransferViewModel
 
@@ -94,25 +98,25 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         //NavController of Navigation Component
         navController = Navigation.findNavController(view)
         setUIInit()
-        getUserInfoService()
-        getGroupDetailsService()
         setCreateHubConnection()
         setBroadCastListener()
         setTrigger()
 
     }
 
-    private fun getGroupDetailsService() {
-        groupViewModel.getGroupDetails().observe(viewLifecycleOwner,_groupDetailsObserver)
-    }
-
-    private fun getUserInfoService() {
-        accountViewModel.getUserInfos().observe(viewLifecycleOwner,_userObserver)
-    }
-
     private fun setUIInit() {
         (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = true)
         binding.BTNLogout.setOnClickListener(this)
+
+        _userInfoTransferViewModel._userInfoResponseModel.observe(
+            viewLifecycleOwner,
+            _userInfoObserver
+        )
+        _groupDetailsTransferViewModel._groupDetailsResponseModel.observe(
+            viewLifecycleOwner,
+            _groupDetailsObserver
+        )
+
     }
     private fun setBroadCastListener() {
         val CLIENT_METHOD_BROADAST_MESSAGE = "ReceiveMessage"
@@ -217,42 +221,12 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         navController.navigate(R.id.action_global_loginFragment)
     }
 
-    private val _userObserver = Observer<Resource<UserInfoResponseModel>>{
-        when(it.status){
-            Status.SUCCESS-> {
-                hide()
-                it.data?.let { userInfo->
-                    _userInfoTransferViewModel.setUserInfo(userInfo)
-                }
-            }
-            Status.ERROR ->{
-                hide()
-                showToast(it.message)
-
-            }
-            Status.LOADING->{
-                show()
-            }
-        }
+    private val _userInfoObserver = Observer<UserInfoResponseModel> {
+        Log.d(GROUPSFRAGMENTTAG, it.toString())
     }
 
-    private val _groupDetailsObserver = Observer<Resource<GroupDetailsResponseModel>>{
-        when(it.status){
-            Status.SUCCESS-> {
-                hide()
-                it.data?.let { groupDetails->
-                   _groupDetailsTransferViewModel.setGroupDetails(groupDetails)
-                }
-            }
-            Status.ERROR ->{
-                hide()
-                showToast(it.message)
-
-            }
-            Status.LOADING->{
-                show()
-            }
-        }
+    private val _groupDetailsObserver = Observer<GroupDetailsResponseModel> {
+        Log.d(GROUPSFRAGMENTTAG, it.toString())
     }
 
 }

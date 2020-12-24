@@ -91,9 +91,9 @@ class RetrofilBuilder {
                 builder.hostnameVerifier { hostname, session -> true }
 
 
-                builder.connectTimeout(2, TimeUnit.MINUTES)
-                    .writeTimeout(2, TimeUnit.MINUTES) // write timeout
-                    .readTimeout(2, TimeUnit.MINUTES) // read timeout
+                builder.connectTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS) // write timeout
+                    .readTimeout(60, TimeUnit.SECONDS) // read timeout
                     .addInterceptor(interceptor)
                     .followRedirects(true)
                     .followSslRedirects(true)
