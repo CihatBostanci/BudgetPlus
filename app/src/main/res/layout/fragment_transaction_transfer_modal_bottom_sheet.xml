@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.TransactionTransferModalBottomSheetFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="?android:attr/actionBarSize"
+        android:paddingBottom="?android:attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/TWTransactionTransferTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensansbolditalic"
+            android:gravity="center"
+            android:text="Transanfer Money"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILTransferTransactionExpense"
+            style="@style/modifiedTextInputLayout"
+            android:layout_margin="15dp"
+            app:hintTextColor="@color/bubble2ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWTransactionTransferTitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ETTransferExpense"
+                style="@style/modifiedEditText"
+                android:autofillHints=""
+                android:backgroundTint="@color/bubble2ColorDark"
+                android:drawableStart="@drawable/ic_baseline_post_add_24"
+                android:hint="@string/add_expense_hint"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILTransactionTransferDescription"
+            style="@style/modifiedTextInputLayout"
+            android:layout_margin="15dp"
+            app:hintTextColor="@color/bubble3ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TILTransferTransactionExpense">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ETCreateAGroupDescription"
+                style="@style/modifiedEditText"
+                android:autofillHints=""
+                android:backgroundTint="@color/bubble3ColorDark"
+                android:drawableStart="@drawable/ic_baseline_description_24"
+                android:hint="Transfer Description"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/TWTransactionTransferTitleMoneySpinnerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/money_prompt"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/opensanssemibolditalic"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TILTransactionTransferDescription" />
+
+
+        <Spinner
+            android:id="@+id/SPTransactiontransferMoneyChoose"
+            style="@style/spinner_default_style"
+            android:layout_width="match_parent"
+            android:layout_height = "?attr/dropdownListPreferredItemHeight"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:entries="@array/money_arrays"
+            android:prompt="@string/money_prompt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWTransactionTransferTitleMoneySpinnerTitle" />
+
+        <View
+            android:id="@+id/VWTransferTransactionSeparator"
+            android:background="@color/bubble1ColorDark"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical ="true"
+            android:layout_alignParentTop="true"
+            app:layout_constraintTop_toBottomOf="@+id/SPTransactiontransferMoneyChoose"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

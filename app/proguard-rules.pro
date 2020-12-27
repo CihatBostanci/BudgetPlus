@@ -23,3 +23,4 @@
 -keepclassmembers class ** implements androidx.viewbinding.ViewBinding {
     public static ** bind(android.view.View);
 }
+-keep class com.github.aachartmodel.aainfographics.* { *; }

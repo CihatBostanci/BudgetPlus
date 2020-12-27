@@ -4,25 +4,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.budgetplus.BudgetPlusApplication
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.budgetplus.MainActivity
 import com.example.budgetplus.R
 import com.example.budgetplus.databinding.FragmentGroupsBinding
-import com.example.budgetplus.manager.SharedPreferencesManager.set
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.ADD_EXPENSE_ACTION
 import com.example.budgetplus.utils.CREATE_A_GROUP_ACTION
 import com.example.budgetplus.utils.FROM
-import com.example.budgetplus.utils.TOKEN
 import com.example.budgetplus.view.adapter.GroupsAdapterWithViewPager
 import com.example.budgetplus.viewmodel.AccountViewModel
 import com.example.budgetplus.viewmodel.GroupViewModel
@@ -65,6 +65,8 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
     //Navigation Component controller
     private lateinit var navController: NavController
+
+    private var groupDetailsResponseModelLiveData =  MutableLiveData<GroupDetailsResponseModel>()
 
     val categories = listOf(
         "Group 1",
@@ -132,7 +134,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     private fun setUIInit() {
 
         (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = true)
-        binding.BTNLogout.setOnClickListener(this)
+
 
         _userInfoTransferViewModel._userInfoResponseModel.observe(
             viewLifecycleOwner,
@@ -142,17 +144,28 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
             viewLifecycleOwner,
             _groupDetailsObserver
         )
-
-        var adapterWithViewPager = GroupsAdapterWithViewPager()
-        adapterWithViewPager.setItem(categories)
-        binding.VPForGroup.adapter = adapterWithViewPager
-
-
+        setViewPagerAdapter()
         binding.BTNJoinGroup.setOnClickListener(this)
         binding.BTNSendGroup.setOnClickListener(this)
+
+        binding.BTNTransferTransaction.setOnClickListener(this)
         binding.FABCreateAGroupAction.setOnClickListener(this)
         binding.FABAddExpenseAction.setOnClickListener(this)
         binding.FABShareLinkAction.setOnClickListener(this)
+
+
+    }
+
+    private fun setViewPagerAdapter() {
+
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
+            {
+            val adapterWithViewPager = GroupsAdapterWithViewPager()
+            adapterWithViewPager.setItem(it)
+            binding.VPForGroup.adapter = adapterWithViewPager
+        })
+
+
     }
 
     private fun setBroadCastListener() {
@@ -238,9 +251,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         v?.let {
             when (it.id) {
-                binding.BTNLogout.id -> {
-                    logoutAction()
-                }
+                binding.BTNTransferTransaction.id -> transferTransactionAction()
                 binding.BTNJoinGroup.id -> {
                     groupName = binding.ETJoinGroup.text.toString()
                     setJoinGroup(groupName)
@@ -254,6 +265,11 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
                 binding.FABShareLinkAction.id -> shareLinkAction()
             }
         }
+    }
+
+    private fun transferTransactionAction() {
+        Log.d(GROUPSFRAGMENTTAG, "send transfer pressed")
+        navController.navigate(R.id.action_groupsFragment_to_transactionTransferModalBottomSheetFragment)
     }
 
     private fun shareLinkAction() {
@@ -286,19 +302,19 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun logoutAction() {
-        (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = false)
-        BudgetPlusApplication.sharedPreferencesManager[TOKEN] = ""
-        navController.navigate(R.id.action_global_loginFragment)
-    }
+
 
     //Observers
     private val _userInfoObserver = Observer<UserInfoResponseModel> {
         Log.d(GROUPSFRAGMENTTAG, it.toString())
+
+
     }
 
     private val _groupDetailsObserver = Observer<GroupDetailsResponseModel> {
         Log.d(GROUPSFRAGMENTTAG, it.toString())
+
+            groupDetailsResponseModelLiveData.value = it
     }
 
     private val _socketObserver = Observer<HubConnection> {

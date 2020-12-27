@@ -100,8 +100,16 @@
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:fontFamily">@font/opensanslightitalic</item>
+        <item name="android:fontFamily">@font/opensansextrabolditalic</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name ="spinner_default_style" style= "@android:style/Widget.Material.Spinner">
+        <item name="android:dropDownWidth">300dp</item>
+        <item name="android:dropDownVerticalOffset">?attr/dropdownListPreferredItemHeight</item>
+        <item name="android:popupBackground">@color/whiteCardColor</item>
+        <item name="android:popupElevation">3dp</item>
+        <item name="android:stateListAnimator">@drawable/spinner_sla</item>
     </style>
 
 </resources>

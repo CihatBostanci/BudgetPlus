@@ -3,6 +3,7 @@ package com.example.budgetplus
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -31,16 +32,24 @@ class MainActivity : BaseActivity() {
     private fun setInit() {
         RetrofilBuilder.getInstance(this)
 
-        binding.bottomNavigation.setNavigationChangeListener { view , _ ->
-          when(view.id){
-             binding.cItemGroups.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_groupsFragment)
-             binding.cItemNotification.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_notificationFragment)
-             binding.cItemMore.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_accountFragment)
-        }
-
-        }
+       setBottomNavigation()
 
     }
+
+    private fun setBottomNavigation() {
+        binding.bottomNavigation.setNavigationChangeListener { view , _ ->
+
+            when(view.id){
+                binding.cItemGroups.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_groupsFragment)
+                binding.cItemNotification.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_notificationFragment)
+                binding.cItemMore.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_accountFragment)
+            }
+        }
+    }
+    fun navigationSetter(){
+        binding.bottomNavigation.onClick(binding.cItemGroups)
+    }
+
 
     override fun onBackPressed() {
         val navHostFragment: NavHostFragment? =

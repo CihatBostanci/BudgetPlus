@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.budgetplus.BudgetPlusApplication
+import com.example.budgetplus.MainActivity
 import com.example.budgetplus.R
 import com.example.budgetplus.databinding.FragmentLoginBinding
 import com.example.budgetplus.manager.SharedPreferencesManager.get
@@ -319,7 +320,8 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
                 it.data?.let { groupDetails->
                     _groupDetailsTransferViewModel.setGroupDetails(groupDetails)
                 }
-                navController.navigate(R.id.action_loginFragment_to_groupsFragment)
+                (requireActivity() as MainActivity).navigationSetter()
+                //navController.navigate(R.id.action_loginFragment_to_groupsFragment)
             }
             Status.ERROR ->{
                 hide()

@@ -1,126 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context=".view.GroupsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/VPForGroup"
+        >
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLViewPager"
             android:layout_width="match_parent"
-            android:layout_height="550dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHeight_percent="0.70"
             >
 
-        </androidx.viewpager2.widget.ViewPager2>
-        <Button
-            android:id="@+id/BTNLogout"
-            android:layout_width="wrap_content"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/VPForGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:clipChildren="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLTransactionTransfer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="?android:attr/actionBarSize"
-            android:text="Logout"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHeight_percent="0.30"
+            >
+
+            <Button
+                android:id="@+id/BTNTransferTransaction"
+                style="@style/loginButton"
+                android:layout_gravity="center_vertical"
+                android:text="Send Transfer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:visibility="gone"
-            >
-
-
-        <EditText
-            android:id="@+id/ETJoinGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="152dp"
-            android:text="Group Name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.096"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BTNLogout">
+            app:layout_constraintTop_toTopOf="parent">
 
-        </EditText>
 
-        <Button
-            android:id="@+id/BTNJoinGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="152dp"
-            android:text="Join"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.109"
+            <EditText
+                android:id="@+id/ETJoinGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="152dp"
+                android:text="Group Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.096"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            app:layout_constraintStart_toEndOf="@+id/ETJoinGroup"
-            app:layout_constraintTop_toBottomOf="@+id/BTNLogout">
+            </EditText>
 
-        </Button>
+            <Button
+                android:id="@+id/BTNJoinGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="152dp"
+                android:text="Join"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.109"
+                app:layout_constraintStart_toEndOf="@+id/ETJoinGroup"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/ETSendGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Send Message"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.096"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ETJoinGroup">
+            </Button>
 
-        </EditText>
+            <EditText
+                android:id="@+id/ETSendGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Send Message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.096"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETJoinGroup">
 
-        <Button
-            android:id="@+id/BTNSendGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Send"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.108"
+            </EditText>
 
-            app:layout_constraintStart_toEndOf="@+id/ETSendGroup"
-            app:layout_constraintTop_toBottomOf="@+id/BTNJoinGroup">
+            <Button
+                android:id="@+id/BTNSendGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Send"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.108"
+                app:layout_constraintStart_toEndOf="@+id/ETSendGroup"
+                app:layout_constraintTop_toBottomOf="@+id/BTNJoinGroup">
 
-        </Button>
+            </Button>
 
-        <TextView
-            android:id="@+id/TWChannel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/BTNSendGroup"
-            android:ems="15"
-            android:text="Channel"
-            android:gravity="center"
-            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/TWChannel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="15"
+                android:gravity="center"
+                android:text="Channel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/BTNSendGroup">
 
-        </TextView>
+            </TextView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            fab:fab_addButtonColorNormal="@color/whiteCardColor"
-            fab:fab_addButtonColorPressed="@color/colorPrimary"
-            fab:fab_addButtonPlusIconColor="@color/backgroundLightColor"
-            fab:fab_labelStyle="@style/menu_labels_style"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="?android:attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            >
+            fab:fab_addButtonColorNormal="@color/whiteCardColor"
+            fab:fab_addButtonColorPressed="@color/colorPrimary"
+            fab:fab_addButtonPlusIconColor="@color/backgroundLightColor"
+            fab:fab_labelStyle="@style/menu_labels_style">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/FABShareLinkAction"
@@ -128,9 +159,8 @@
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_baseline_share_24"
                 fab:fab_colorNormal="@color/whiteCardColor"
-                fab:fab_title="Share Link"
                 fab:fab_colorPressed="@color/colorPrimary"
-                />
+                fab:fab_title="Share Link" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/FABAddExpenseAction"
@@ -138,8 +168,8 @@
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_baseline_post_add_24"
                 fab:fab_colorNormal="@color/whiteCardColor"
-                fab:fab_title="Add Expense"
-                fab:fab_colorPressed="@color/colorPrimary"/>
+                fab:fab_colorPressed="@color/colorPrimary"
+                fab:fab_title="Add Expense" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/FABCreateAGroupAction"
@@ -147,11 +177,8 @@
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_baseline_group_add_24"
                 fab:fab_colorNormal="@color/whiteCardColor"
-                fab:fab_title="Create a Group"
                 fab:fab_colorPressed="@color/colorPrimary"
-                />
-
-
+                fab:fab_title="Create a Group" />
 
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
