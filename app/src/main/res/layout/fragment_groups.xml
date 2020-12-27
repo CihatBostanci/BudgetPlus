@@ -11,17 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/VPForGroup"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+        </androidx.viewpager2.widget.ViewPager2>
         <Button
             android:id="@+id/BTNLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="?android:attr/actionBarSize"
             android:text="Logout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.105" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            >
+
 
         <EditText
             android:id="@+id/ETJoinGroup"
@@ -90,10 +105,11 @@
             android:layout_marginTop="20dp">
 
         </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
@@ -103,12 +119,11 @@
             fab:fab_labelStyle="@style/menu_labels_style"
             android:layout_marginBottom="?android:attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             >
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/shareLinkAction"
+                android:id="@+id/FABShareLinkAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_baseline_share_24"
@@ -118,7 +133,7 @@
                 />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addExpenseAction"
+                android:id="@+id/FABAddExpenseAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_baseline_post_add_24"
@@ -127,13 +142,16 @@
                 fab:fab_colorPressed="@color/colorPrimary"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/AddGroupAction"
+                android:id="@+id/FABCreateAGroupAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_baseline_group_add_24"
                 fab:fab_colorNormal="@color/whiteCardColor"
-                fab:fab_title="Add Group"
-                fab:fab_colorPressed="@color/colorPrimary"/>
+                fab:fab_title="Create a Group"
+                fab:fab_colorPressed="@color/colorPrimary"
+                />
+
+
 
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>

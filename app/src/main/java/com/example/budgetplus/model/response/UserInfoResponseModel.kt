@@ -16,6 +16,7 @@ data class UserInfoResponseModel(
     @SerializedName("userId")
     var userId: Int
 ):Serializable {
+    constructor():this("","","","",0)
     override fun toString(): String {
         return "UserInfoResponseModel(email='$email', firstName='$firstName', lastName='$lastName', shortName='$shortName', userId=$userId)"
     }

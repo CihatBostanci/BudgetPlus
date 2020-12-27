@@ -3,19 +3,13 @@ package com.example.budgetplus
 
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.widget.Toast
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.example.budgetplus.databinding.ActivityMainBinding
 import com.example.budgetplus.repository.RetrofilBuilder
-import com.example.budgetplus.utils.ERRORMESSAGE
 import com.example.budgetplus.utils.IOnBackPressed
 import com.example.budgetplus.view.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : BaseActivity() {
@@ -37,7 +31,7 @@ class MainActivity : BaseActivity() {
     private fun setInit() {
         RetrofilBuilder.getInstance(this)
 
-        binding.bottomNavigation.setNavigationChangeListener { view , position ->
+        binding.bottomNavigation.setNavigationChangeListener { view , _ ->
           when(view.id){
              binding.cItemGroups.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_groupsFragment)
              binding.cItemNotification.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_notificationFragment)

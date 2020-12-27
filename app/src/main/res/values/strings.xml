@@ -24,5 +24,18 @@
     <string name="verify">Verify</string>
     <string name="submit">Submit</string>
 
+    <!--Spinner For Money-->
+    <string name="money_prompt">Choose a money type</string>
+    <string name="create">Create</string>
+    <string name="create_a_group_description_hint">Group Description</string>
+    <string name="create_a_group_name">Group Name</string>
+    <string name="create_a_group_title">Create A Group</string>
+    <string name="add">ADD</string>
+    <string name="add_expense_hint">Add Expense</string>
+    <string name="add_expense_title">Add Expense</string>
+    <string-array name="money_arrays">
+        <item>TRY</item>
+        <item>USD</item>
+    </string-array>
 
 </resources>

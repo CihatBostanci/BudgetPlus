@@ -20,10 +20,7 @@ import java.lang.Exception
 const val BASETAG = "BASEFRATAG"
 
 abstract class BaseFragment: Fragment(), ProgressDisplay, IOnBackPressed {
-
-
-    private lateinit var hubConnection: HubConnection
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,17 +29,7 @@ abstract class BaseFragment: Fragment(), ProgressDisplay, IOnBackPressed {
             setText(R.string.hello_blank_fragment)
         }
     }
-    fun setCreateHubConnection() {
-        hubConnection = HubConnectionBuilder.create(connectionHubUrl).build()
-        try {
-            hubConnection.start()
-            Log.d(BASETAG, "Connection success")
 
-        } catch (e: Exception) {
-            Log.d(BASETAG, "Connection failed:  $e")
-            throw e
-        }
-    }
 
     override fun show() {
         if (requireActivity() is ProgressDisplay) {
@@ -61,7 +48,6 @@ abstract class BaseFragment: Fragment(), ProgressDisplay, IOnBackPressed {
         return true
     }
 
-    fun getHubConnection() = hubConnection
 
     fun showToast(message:String?){
         (requireActivity() as MainActivity).showToast(message)

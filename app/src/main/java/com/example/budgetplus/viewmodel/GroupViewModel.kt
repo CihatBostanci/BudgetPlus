@@ -1,6 +1,7 @@
 package com.example.budgetplus.viewmodel
 
 import androidx.lifecycle.liveData
+import com.example.budgetplus.model.request.GroupAddRequestBodyModel
 import com.example.budgetplus.model.request.LoginRequestBodyModel
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.LoginSuccessResponseModel
@@ -13,7 +14,7 @@ import com.example.budgetplus.utils.errorHTTP400Handler
 import kotlinx.coroutines.Dispatchers
 import retrofit2.HttpException
 
-class GroupViewModel: BaseViewModel() {
+class GroupViewModel : BaseViewModel() {
 
 
     fun getGroupDetails() = liveData(Dispatchers.IO) {
@@ -28,13 +29,13 @@ class GroupViewModel: BaseViewModel() {
                     )
                 )
             )
-        } catch (exception: HttpException){
-            when(exception.code()){
+        } catch (exception: HttpException) {
+            when (exception.code()) {
                 400 -> {
                     emit(
                         Resource.error(
                             data = null,
-                            message =  errorHTTP400Handler(exception)?.message ?: DEFAULTERRORMESSAGE
+                            message = errorHTTP400Handler(exception)?.message ?: DEFAULTERRORMESSAGE
                         )
                     )
                 }
@@ -55,4 +56,45 @@ class GroupViewModel: BaseViewModel() {
             }
         }
     }
+
+    fun addGroup(addRequestBodyModel: GroupAddRequestBodyModel) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                GroupRepository.addGroup(addRequestBodyModel)
+                emit(
+                    Resource.success(
+                        true
+                    )
+                )
+            } catch (exception: HttpException) {
+                when (exception.code()) {
+                    400 -> {
+                        emit(
+                            Resource.error(
+                                data = null,
+                                message = errorHTTP400Handler(exception)?.message
+                                    ?: DEFAULTERRORMESSAGE
+                            )
+                        )
+                    }
+                    401 -> {
+                        emit(
+                            Resource.error(
+                                data = null,
+                                message = exception.message()
+                            )
+                        )
+                    }
+                    else -> emit(
+                        Resource.error(
+                            data = null,
+                            message = DEFAULTERRORMESSAGE
+                        )
+                    )
+                }
+            }
+        }
+
 }

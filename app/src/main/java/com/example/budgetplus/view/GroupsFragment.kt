@@ -5,9 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -19,11 +19,17 @@ import com.example.budgetplus.databinding.FragmentGroupsBinding
 import com.example.budgetplus.manager.SharedPreferencesManager.set
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.UserInfoResponseModel
+import com.example.budgetplus.utils.ADD_EXPENSE_ACTION
+import com.example.budgetplus.utils.CREATE_A_GROUP_ACTION
+import com.example.budgetplus.utils.FROM
 import com.example.budgetplus.utils.TOKEN
+import com.example.budgetplus.view.adapter.GroupsAdapterWithViewPager
 import com.example.budgetplus.viewmodel.AccountViewModel
 import com.example.budgetplus.viewmodel.GroupViewModel
+import com.example.budgetplus.viewmodel.SocketViewModel
 import com.example.budgetplus.viewmodel.datatransferviewmodel.GroupDetailsTransferViewModel
 import com.example.budgetplus.viewmodel.datatransferviewmodel.UserInfoTransferViewModel
+import com.microsoft.signalr.HubConnection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,11 +50,14 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     private var param1: String? = null
     private var param2: String? = null
 
-    private val GROUPSFRAGMENTTAG =  "GROUPSTAG"
+    private val GROUPSFRAGMENTTAG = "GROUPSTAG"
 
     //For MVVM ViewModel
     private lateinit var accountViewModel: AccountViewModel
     private lateinit var groupViewModel: GroupViewModel
+
+    //Socket MVVM ViewModel
+    private lateinit var socketViewModel: SocketViewModel
 
     //Transfer ViewModel
     private lateinit var _userInfoTransferViewModel: UserInfoTransferViewModel
@@ -57,6 +66,16 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     //Navigation Component controller
     private lateinit var navController: NavController
 
+    val categories = listOf(
+        "Group 1",
+        "Group 2",
+        "Group 3",
+        "Group 4",
+        "Group 5",
+    )
+    //Hub Connection
+    private var hubConnection = MutableLiveData<HubConnection>()
+
     //View Binding
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -64,7 +83,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     private val binding get() = _binding!!
 
     private var chat: String = ""
-    private var message: String= ""
+    private var message: String = ""
     private var groupName = "Group1"
 
 
@@ -73,9 +92,12 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
         groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
+        socketViewModel = ViewModelProvider(this)[SocketViewModel::class.java]
 
-        _userInfoTransferViewModel = ViewModelProvider(requireActivity())[UserInfoTransferViewModel::class.java]
-        _groupDetailsTransferViewModel = ViewModelProvider(requireActivity())[GroupDetailsTransferViewModel::class.java]
+        _userInfoTransferViewModel =
+            ViewModelProvider(requireActivity())[UserInfoTransferViewModel::class.java]
+        _groupDetailsTransferViewModel =
+            ViewModelProvider(requireActivity())[GroupDetailsTransferViewModel::class.java]
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -97,14 +119,18 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         //NavController of Navigation Component
         navController = Navigation.findNavController(view)
-        setUIInit()
         setCreateHubConnection()
         setBroadCastListener()
-        setTrigger()
+        setUIInit()
 
     }
 
+    private fun setCreateHubConnection() {
+        socketViewModel.getHubConnection().observe(viewLifecycleOwner, _socketObserver)
+    }
+
     private fun setUIInit() {
+
         (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = true)
         binding.BTNLogout.setOnClickListener(this)
 
@@ -117,52 +143,64 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
             _groupDetailsObserver
         )
 
+        var adapterWithViewPager = GroupsAdapterWithViewPager()
+        adapterWithViewPager.setItem(categories)
+        binding.VPForGroup.adapter = adapterWithViewPager
+
+
+        binding.BTNJoinGroup.setOnClickListener(this)
+        binding.BTNSendGroup.setOnClickListener(this)
+        binding.FABCreateAGroupAction.setOnClickListener(this)
+        binding.FABAddExpenseAction.setOnClickListener(this)
+        binding.FABShareLinkAction.setOnClickListener(this)
     }
+
     private fun setBroadCastListener() {
         val CLIENT_METHOD_BROADAST_MESSAGE = "ReceiveMessage"
-        getHubConnection().on(
-            CLIENT_METHOD_BROADAST_MESSAGE,
-            { message: String ->
-                GlobalScope.launch(Dispatchers.Main) {
-                    try {
-                        chatMessage(message)
-                    } catch (t: Throwable) {
-                        Log.d("GROUPTAG", "Failed chat message")
-                    }
-                }
-            },
-            String::class.java
-        )
+        hubConnection.observe(viewLifecycleOwner,
+            {
+                it.on(
+                    CLIENT_METHOD_BROADAST_MESSAGE,
+                    { message: String ->
+                        GlobalScope.launch(Dispatchers.Main) {
+                            try {
+                                chatMessage(message)
+                            } catch (t: Throwable) {
+                                Log.d("GROUPTAG", "Failed chat message")
+                            }
+                        }
+                    },
+                    String::class.java
+                )
+            })
     }
 
     private fun chatMessage(message: String) {
-
         chat += message + "\n"
         binding.TWChannel.text = chat
     }
 
-    private fun setTrigger() {
-
-        binding.BTNJoinGroup.setOnClickListener(this)
-        binding.BTNSendGroup.setOnClickListener(this)
-    }
-
     private fun setJoinGroup(groupName: String) {
         //hubConnection.invoke( Void.class,"JoinGroup", groupName)
-        getHubConnection().invoke(Void::class.java, "JoinGroup", groupName)
+        hubConnection.observe(viewLifecycleOwner,
+            {
+                it.invoke(Void::class.java, "JoinGroup", groupName)
+            })
     }
 
     private fun setSendGroup(message: String) {
         try {
             if (groupName.isNotEmpty() && message.isNotEmpty()) {
-                getHubConnection().invoke(
-                    Void::class.java,
-                    "DirectMessageToGroup",
-                    groupName,
-                    message
-                )
+                hubConnection.observe(viewLifecycleOwner,
+                    {
+                        it.invoke(
+                            Void::class.java,
+                            "DirectMessageToGroup",
+                            groupName,
+                            message
+                        )
+                    })
             }
-
         } catch (e: Exception) {
             Log.e("GROUPTAG", e.toString())
 
@@ -211,8 +249,41 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
                     message = binding.ETSendGroup.text.toString()
                     setSendGroup(message)
                 }
+                binding.FABCreateAGroupAction.id -> addGroupAction()
+                binding.FABAddExpenseAction.id -> addExpenseAction()
+                binding.FABShareLinkAction.id -> shareLinkAction()
             }
         }
+    }
+
+    private fun shareLinkAction() {
+        Log.d(GROUPSFRAGMENTTAG, "share Link pressed")
+    }
+
+    private fun addExpenseAction() {
+        Log.d(GROUPSFRAGMENTTAG, "add expense pressed")
+        val fromActionBundle =
+            bundleOf(
+                FROM to ADD_EXPENSE_ACTION,
+            )
+        navController.navigate(
+            R.id.action_groupsFragment_to_modalBottomSheetFragment,
+            fromActionBundle
+        )
+
+    }
+
+    private fun addGroupAction() {
+        Log.d(GROUPSFRAGMENTTAG, "Create a group pressed")
+        val fromActionBundle =
+            bundleOf(
+                FROM to CREATE_A_GROUP_ACTION,
+            )
+        navController.navigate(
+            R.id.action_groupsFragment_to_modalBottomSheetFragment,
+            fromActionBundle
+        )
+
     }
 
     private fun logoutAction() {
@@ -221,12 +292,17 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         navController.navigate(R.id.action_global_loginFragment)
     }
 
+    //Observers
     private val _userInfoObserver = Observer<UserInfoResponseModel> {
         Log.d(GROUPSFRAGMENTTAG, it.toString())
     }
 
     private val _groupDetailsObserver = Observer<GroupDetailsResponseModel> {
         Log.d(GROUPSFRAGMENTTAG, it.toString())
+    }
+
+    private val _socketObserver = Observer<HubConnection> {
+        hubConnection.postValue(it)
     }
 
 }

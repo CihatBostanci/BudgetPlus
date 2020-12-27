@@ -88,7 +88,7 @@ class RetrofilBuilder {
                 val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
                 val builder = OkHttpClient.Builder()
                 builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-                builder.hostnameVerifier { hostname, session -> true }
+                builder.hostnameVerifier { _, _ -> true }
 
 
                 builder.connectTimeout(60, TimeUnit.SECONDS)

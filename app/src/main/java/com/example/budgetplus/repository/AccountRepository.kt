@@ -16,7 +16,6 @@ object AccountRepository : BaseRepository() {
 
     suspend fun loginAccount(
         loginRequestBodyModel: LoginRequestBodyModel,
-        token: String
     ) = apiAccountService.accountLogin(loginRequestBodyModel)
 
     suspend fun authenticateAccount(loginRequestBodyModel: LoginRequestBodyModel) =

@@ -51,8 +51,8 @@ val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
 fun isValidPassword(password: String?): Boolean {
     val pattern: Pattern
     val matcher: Matcher
-    val PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$"
-    pattern = Pattern.compile(PASSWORD_PATTERN)
+    val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$"
+    pattern = Pattern.compile(passwordPattern)
     matcher = pattern.matcher(password)
     return matcher.matches()
 }
@@ -63,32 +63,43 @@ const val TOKEN = "token"
 
 
 //Account Service Constant
-const val REGISTERSERVICE = "/Account/Register"
-const val LOGINSERVICE=  "/Account/Login"
-const val AUTHENTICATESERVICE = "/Account/Authenticate"
-const val CONFIRMEMAILSERVICE = "/Account/ConfirmEmail"
-const val UPDATEVERIFICATIONSERVICE = "/Account/UpdateVerificationCode"
-const val RESETPASSWORDSERVICE = "/Account/ResetPasswordRequest"
-const val CHANGEPASSWORDSERVICE = "/Account/ChangePassword"
-const val CONTROLRESETCODESERVICE = "/Account/ControlResetCode"
-const val GETUSERINFOSERVICE = "/Account/GetUserInfos"
+const val REGISTER_SERVICE = "/Account/Register"
+const val LOGIN_SERVICE=  "/Account/Login"
+const val AUTHENTICATE_SERVICE = "/Account/Authenticate"
+const val CONFIRM_EMAIL_SERVICE = "/Account/ConfirmEmail"
+const val UPDATE_VERIFICATION_SERVICE = "/Account/UpdateVerificationCode"
+const val RESET_PASSWORD_SERVICE = "/Account/ResetPasswordRequest"
+const val CHANGE_PASSWORD_SERVICE = "/Account/ChangePassword"
+const val CONTROL_RESET_CODE_SERVICE = "/Account/ControlResetCode"
+const val GET_USER_INFO_SERVICE = "/Account/GetUserInfos"
 
 //Group Service Constant
-const val GETGROUPDETAILSSERVICE = "/Group/GetGroupDetails"
+const val GET_GROUP_DETAILS_SERVICE = "/Group/GetGroupDetails"
+const val ADD_GROUP_SERVICE = "/Group/Add"
 
 //*****************SERVICE MESSAGE****************************
-const val SUCCESSMESSAGE = "Success"
-const val ERRORMESSAGE = "Error"
-const val WRONGMESSAGE= "Wrong code"
-const val CHANGEPASSWORDMESSAGE = "Please change your password"
-const val CHECKEMAILPASSWORDMESSAGE = "Please check your email to verify your password"
+const val SUCCESS_MESSAGE = "Success"
+const val ERROR_MESSAGE = "Error"
+const val WRONG_MESSAGE = "Wrong code"
+const val CHANGE_PASSWORD_MESSAGE = "Please change your password"
+const val CHECK_EMAIL_PASSWORD_MESSAGE = "Please check your email to verify your password"
 
 
-//*****************ERRO MESSAGE*********************
+//*****************ERROR MESSAGE*********************
 
-const val FORGETPASSWORDERRORMESSAGE =  "Confirmation Password is not equal with password."
-const val PASSWORDINVALIDMESSAGE = "Password is not valid."
-const val EMAILINVALIDMESSAGE = "Email is not valid."
-const val FIRSTNAMEMESSAGE = "First name cannot empty"
-const val LASTNAMEMESSAGE = "Last name cannot empty"
+const val FORGET_PASSWORD_ERROR_MESSAGE =  "Confirmation Password is not equal with password."
+const val PASSWORD_INVALID_MESSAGE = "Password is not valid."
+const val EMAIL_INVALID_MESSAGE = "Email is not valid."
+const val FIRST_NAME_MESSAGE = "First name cannot empty"
+const val LAST_NAME_MESSAGE = "Last name cannot empty"
+
+//****** Transfer Bundle Key ****************
+const val FROM = "FROM"
+const val ADD_EXPENSE_ACTION = "ADDEXPENSE"
+const val CREATE_A_GROUP_ACTION = "CREATEAGROUP"
+
+
+//*****************CREATE A GROUP ERROR MESSAGE*********************
+const val GROUP_DESCRIPTION_ERROR_MESSAGE= "Group Description cannot empty"
+const val GROUP_NAME_ERROR_MESSAGE= "Group Name cannot empty"
 

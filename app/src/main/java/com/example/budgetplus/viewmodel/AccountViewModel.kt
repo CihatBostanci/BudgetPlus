@@ -54,14 +54,12 @@ class AccountViewModel : BaseViewModel() {
 
     fun accountLogin(
         loginRequestBodyModel: LoginRequestBodyModel,
-        token :String
     ) = liveData(Dispatchers.IO) {
 
         emit(Resource.loading(data = null))
         try {
             val dataModel = AccountRepository.loginAccount(
-                loginRequestBodyModel,
-                token
+                loginRequestBodyModel
             )
             emit(
                 Resource.success(
@@ -191,7 +189,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = AccountRepository.updateVerificationCode(
+           AccountRepository.updateVerificationCode(
                 loginRequestBodyModel
             )
             emit(
@@ -236,7 +234,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = AccountRepository.resetPassword(
+          AccountRepository.resetPassword(
                 email
             )
             emit(
@@ -277,7 +275,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = AccountRepository.controlResetCode(
+           AccountRepository.controlResetCode(
                 email, resetCode
             )
             emit(
@@ -320,7 +318,7 @@ class AccountViewModel : BaseViewModel() {
 
         emit(Resource.loading(data = null))
         try {
-            val dataModel = AccountRepository.changePassword(
+          AccountRepository.changePassword(
                changePasswordRequestBodyModel
             )
             emit(

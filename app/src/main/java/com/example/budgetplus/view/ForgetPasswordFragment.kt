@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -114,7 +113,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
     private fun checkValidation(): Boolean {
         var validationFlag = true
         if (!EMAIL_ADDRESS_PATTERN.matcher(binding.ETForgetEmail.text.toString()).matches()) {
-            binding.TILForgetEmail.error = EMAILINVALIDMESSAGE
+            binding.TILForgetEmail.error = EMAIL_INVALID_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -127,7 +126,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
     private fun checkValidationPassword(): Boolean {
         var validationFlag = true
         if (!EMAIL_ADDRESS_PATTERN.matcher(binding.ETForgetEmail.text.toString()).matches()) {
-            binding.TILForgetEmail.error = EMAILINVALIDMESSAGE
+            binding.TILForgetEmail.error = EMAIL_INVALID_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -137,7 +136,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
         if (binding.ETForgetPassword.text?.length !in 5..12 &&
             !isValidPassword(binding.ETForgetPassword.text.toString())
         ) {
-            binding.TILForgetPassword.error = PASSWORDINVALIDMESSAGE
+            binding.TILForgetPassword.error = PASSWORD_INVALID_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -148,7 +147,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
             != binding.ETForgetPassword.text.toString()
         ) {
             binding.TILForgetConfirmationPassword.error =
-               FORGETPASSWORDERRORMESSAGE
+               FORGET_PASSWORD_ERROR_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -227,7 +226,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                             hide()
                             binding.CLForgetVerificationCode.visibility = View.VISIBLE
                            // controlResetCodeService()
-                            showToast(CHECKEMAILPASSWORDMESSAGE)
+                            showToast(CHECK_EMAIL_PASSWORD_MESSAGE)
 
                         }
 
@@ -249,7 +248,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                 when(it.status){
                     Status.SUCCESS -> {
                         hide()
-                        showToast(CHANGEPASSWORDMESSAGE)
+                        showToast(CHANGE_PASSWORD_MESSAGE)
                         binding.CLForgetVerificationCode.visibility = View.GONE
                         binding.TILForgetPassword.visibility = View.VISIBLE
                         binding.TILForgetConfirmationPassword.visibility =  View.VISIBLE
@@ -258,7 +257,7 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                     }
                     Status.ERROR -> {
                         hide()
-                        showToast(WRONGMESSAGE)
+                        showToast(WRONG_MESSAGE)
 
                     }
                     Status.LOADING -> {
@@ -279,11 +278,11 @@ class ForgetPasswordFragment : BaseFragment(), View.OnClickListener, IOnBackPres
                         }
                         Status.ERROR -> {
                             hide()
-                            showToast(ERRORMESSAGE)
+                            showToast(ERROR_MESSAGE)
                         }
                         Status.SUCCESS -> {
                             hide()
-                            showToast(SUCCESSMESSAGE)
+                            showToast(SUCCESS_MESSAGE)
                             navController.navigate(R.id.action_global_loginFragment)
 
                         }

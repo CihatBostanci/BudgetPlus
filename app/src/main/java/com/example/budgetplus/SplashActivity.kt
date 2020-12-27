@@ -29,7 +29,7 @@ class SplashActivity : BaseActivity() {
     private val SPLASHTAG = "SPLASHTAG"
 
         // Initalization property
-    private val SPLASH_TIME_OUT: Long = 7000
+    private val SPLASH_TIME_OUT: Long = 6000
     private var itemMap = mutableMapOf<Int, ImageView>()
     lateinit var animation: Animation
     private var width = 0
@@ -137,7 +137,7 @@ class SplashActivity : BaseActivity() {
             override fun onAnimationEnd(animation: Animator?) {
 
                 val set = animationSet()
-                set.duration = 4000
+                set.duration = 3000
                 set.start()
 
             }
@@ -182,7 +182,7 @@ class SplashActivity : BaseActivity() {
     private fun createAnimation(): AnimatorSet? {
 
         val set = animationSet()
-        set.duration = 3000
+        set.duration = 2000
 
         return set
     }
@@ -205,7 +205,7 @@ class SplashActivity : BaseActivity() {
 
                 animationList.add(animationX)
                 animationList.add(animationY)
-                println(randomNumber(height).toString() + ": " + randomNumber(width))
+                //println(randomNumber(height).toString() + ": " + randomNumber(width))
             }
 
         }

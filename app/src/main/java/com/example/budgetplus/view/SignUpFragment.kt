@@ -1,6 +1,5 @@
 package com.example.budgetplus.view
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
@@ -133,21 +132,21 @@ class SignUpFragment : BaseFragment(), View.OnClickListener, IOnBackPressed {
     private fun checkValidation(): Boolean {
         var validationFlag = true
         if (binding.ETRegisterFirstName.text.toString().isEmpty()) {
-            binding.TILRegisterFirstName.error = FIRSTNAMEMESSAGE
+            binding.TILRegisterFirstName.error = FIRST_NAME_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
             binding.TILRegisterFirstName.isErrorEnabled = false
         }
         if (binding.ETRegisterLastName.text.toString().isEmpty()) {
-            binding.TILRegisterLastName.error = LASTNAMEMESSAGE
+            binding.TILRegisterLastName.error = LAST_NAME_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
             binding.TILRegisterLastName.isErrorEnabled = false
         }
         if (!EMAIL_ADDRESS_PATTERN.matcher(binding.ETRegisterEmail.text.toString()).matches()) {
-            binding.TILRegisterEmail.error = EMAILINVALIDMESSAGE
+            binding.TILRegisterEmail.error = EMAIL_INVALID_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -157,7 +156,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener, IOnBackPressed {
         if (binding.ETRegisterPassword.text?.length !in 5..12 &&
             !isValidPassword(binding.ETRegisterPassword.text.toString())
         ) {
-            binding.TILRegisterPassword.error = PASSWORDINVALIDMESSAGE
+            binding.TILRegisterPassword.error = PASSWORD_INVALID_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -168,7 +167,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener, IOnBackPressed {
             != binding.ETRegisterPassword.text.toString()
         ) {
             binding.TILRegisterConfirmationPassword.error =
-                FORGETPASSWORDERRORMESSAGE
+                FORGET_PASSWORD_ERROR_MESSAGE
             validationFlag = false
             return validationFlag
         } else {

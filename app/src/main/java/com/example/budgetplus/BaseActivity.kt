@@ -1,13 +1,12 @@
 package com.example.budgetplus
 
-import android.app.Activity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.budgetplus.utils.ERRORMESSAGE
+import com.example.budgetplus.utils.ERROR_MESSAGE
 import com.example.budgetplus.utils.ProgressDisplay
 
 abstract class BaseActivity : AppCompatActivity(), ProgressDisplay{
@@ -33,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity(), ProgressDisplay{
     }
 
     fun showToast(message:String?){
-        Toast.makeText(this, message ?: ERRORMESSAGE, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, message ?: ERROR_MESSAGE, Toast.LENGTH_LONG).show()
     }
 
 }

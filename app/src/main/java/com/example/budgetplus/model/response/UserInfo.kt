@@ -14,6 +14,7 @@ data class UserInfo(
     @SerializedName("lastName")
     var lastName: String
 )  {
+    constructor():this(0,"",0,"")
     override fun toString(): String {
         return "UserInfo(balance=$balance, firstName='$firstName', id=$id, lastName='$lastName')"
     }

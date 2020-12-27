@@ -1,8 +1,6 @@
 package com.example.budgetplus.view
 
-import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -28,7 +26,6 @@ import com.example.budgetplus.manager.SharedPreferencesManager.get
 import com.example.budgetplus.manager.SharedPreferencesManager.set
 import com.example.budgetplus.model.request.LoginRequestBodyModel
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
-import com.example.budgetplus.model.response.LoginSuccessResponseModel
 import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.*
 import com.example.budgetplus.viewmodel.AccountViewModel
@@ -184,7 +181,7 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
     private fun checkValidation(): Boolean {
         var validationFlag = true
         if (!EMAIL_ADDRESS_PATTERN.matcher(binding.ETLoginEmail.text.toString()).matches()) {
-            binding.TILLoginEmail.error = EMAILINVALIDMESSAGE
+            binding.TILLoginEmail.error = EMAIL_INVALID_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -193,7 +190,7 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
         if (binding.ETLoginPassword.text.length !in 5..12 &&
             !isValidPassword(binding.ETLoginPassword.text.toString())
         ) {
-            binding.TILLoginPassword.error = PASSWORDINVALIDMESSAGE
+            binding.TILLoginPassword.error = PASSWORD_INVALID_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
@@ -237,33 +234,6 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
                 }
             )
 
-        }
-    }
-
-    private fun loginService(loginSuccessResponseModel: LoginSuccessResponseModel?) {
-
-        loginSuccessResponseModel?.let {
-            it.token?.let {
-                accountViewModel.accountLogin(getLoginRequestModel(), it).observe(
-                    viewLifecycleOwner,
-                    {
-                        Log.d(LOGINFRAGMENTTAG, it.toString())
-                        when (it.status) {
-                            Status.ERROR -> {
-                                hide()
-                                showToast(it.message)
-
-                            }
-                            Status.SUCCESS -> {
-
-                            }
-                            Status.LOADING -> {
-                                show()
-                            }
-                        }
-                    }
-                )
-            }
         }
     }
 
@@ -321,6 +291,7 @@ class LoginFragment : BaseFragment(), View.OnClickListener {
 
     }
 
+    //Observers
     private val _userObserver = Observer<Resource<UserInfoResponseModel>>{
         when(it.status){
             Status.SUCCESS-> {

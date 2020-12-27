@@ -203,8 +203,6 @@ class VerificationCodeFragment : BaseFragment(), View.OnClickListener {
 
     private fun verifyService() {
         customerEmail?.let { customerEmail ->
-            token?.let { token ->
-
                 accountViewModel.accountConfirmEmail(
                     getConfirmationRequestBodyModel(customerEmail))
                     .observe(viewLifecycleOwner,
@@ -218,7 +216,7 @@ class VerificationCodeFragment : BaseFragment(), View.OnClickListener {
                                 }
                                 Status.SUCCESS -> {
                                     it?.let {
-                                        it.data?.let { loginSuccessReturnModel ->
+                                        it.data?.let { _ ->
                                             showToast(it.toString())
                                             navController.navigate(R.id.action_verificationCodeFragment_to_groupsFragment)
                                         }
@@ -231,7 +229,7 @@ class VerificationCodeFragment : BaseFragment(), View.OnClickListener {
                             }
 
                         })
-            }
+
         }
     }
 }

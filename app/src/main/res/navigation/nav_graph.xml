@@ -27,7 +27,11 @@
         android:id="@+id/groupsFragment"
         android:name="com.example.budgetplus.view.GroupsFragment"
         android:label="fragment_groups"
-        tools:layout="@layout/fragment_groups"/>
+        tools:layout="@layout/fragment_groups">
+        <action
+            android:id="@+id/action_groupsFragment_to_modalBottomSheetFragment"
+            app:destination="@id/ModalBottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.example.budgetplus.view.NotificationFragment"
@@ -69,4 +73,9 @@
     <action android:id="@+id/action_global_groupsFragment" app:destination="@id/groupsFragment" />
     <action android:id="@+id/action_global_notificationFragment" app:destination="@id/notificationFragment" />
     <action android:id="@+id/action_global_accountFragment" app:destination="@id/accountFragment" />
+    <dialog
+        android:id="@+id/ModalBottomSheetFragment"
+        android:name="com.example.budgetplus.view.ModalBottomSheetFragment"
+        android:label="fragment_modal_bottom_sheet"
+        tools:layout="@layout/fragment_modal_bottom_sheet" />
 </navigation>
