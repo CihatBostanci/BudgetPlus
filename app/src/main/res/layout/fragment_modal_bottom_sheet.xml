@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingTop="?android:attr/actionBarSize"
+    android:paddingTop="10dp"
     android:paddingBottom="?android:attr/actionBarSize"
     tools:context=".view.ModalBottomSheetFragment"
 
@@ -22,7 +22,6 @@
             android:id="@+id/TWAddExpenseTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:fontFamily="@font/opensansbolditalic"
             android:gravity="center"
             android:text="@string/add_expense_title"
@@ -37,6 +36,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TILAddExpenseGroupNo"
             style="@style/modifiedTextInputLayout"
+            android:layout_margin="15dp"
             app:hintTextColor="@color/bubble1ColorDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
