@@ -40,7 +40,7 @@ class GroupsViewHolder constructor(itemView: View) :
 
             val data: MutableList<DataEntry> = ArrayList()
             for (groupedExpens in groupInfo.expenseGroup.groupedExpenses) {
-                data.add(ValueDataEntry(groupedExpens.category, groupedExpens.percentage))
+                data.add(ValueDataEntry(groupedExpens.category, groupedExpens.categoryTotal))
             }
             pie.data(data)
 
@@ -66,8 +66,6 @@ class GroupsViewHolder constructor(itemView: View) :
 
                 anyChart.setChart(pie)
             }
-
-
         } else {
             itemView.CLGroupInfoTitle.hide()
             itemView.CLIfNoExpense.show()
