@@ -97,6 +97,7 @@ const val LAST_NAME_MESSAGE = "Last name cannot empty"
 const val FROM = "FROM"
 const val ADD_EXPENSE_ACTION = "ADDEXPENSE"
 const val CREATE_A_GROUP_ACTION = "CREATEAGROUP"
+const val TRANSFER_GROUPS_FRIEND_LIST = "FRIENDLIST"
 
 
 //*****************CREATE A GROUP ERROR MESSAGE*********************

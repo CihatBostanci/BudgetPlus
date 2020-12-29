@@ -53,14 +53,33 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILAddExpenseDescription"
+            style="@style/modifiedTextInputLayout"
+            android:layout_margin="15dp"
+            app:hintTextColor="@color/bubble3ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TILAddExpenseGroupNo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ETAddExpenseDescription"
+                style="@style/modifiedEditText"
+                android:autofillHints=""
+                android:backgroundTint="@color/bubble3ColorDark"
+                android:drawableStart="@drawable/ic_baseline_description_24"
+                android:hint="Expense Description"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TILAddExpense"
             style="@style/modifiedTextInputLayout"
             android:layout_margin="15dp"
             app:hintTextColor="@color/bubble2ColorDark"
-            app:layout_constraintBottom_toTopOf="@+id/BTNAddExpense"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TILAddExpenseGroupNo">
+            app:layout_constraintTop_toBottomOf="@+id/TILAddExpenseDescription">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ETAddExpense"
@@ -71,7 +90,107 @@
                 android:hint="@string/add_expense_hint"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/TWAddExpenseTitleMoneySpinnerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/opensanssemibolditalic"
+            android:gravity="center"
+            android:text="@string/money_prompt"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TILAddExpense" />
 
+
+        <Spinner
+            android:id="@+id/SPAddExpenseMoneyChoose"
+            style="@style/spinner_default_style"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/dropdownListPreferredItemHeight"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:entries="@array/money_arrays"
+            android:prompt="@string/money_prompt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWAddExpenseTitleMoneySpinnerTitle" />
+
+        <View
+            android:id="@+id/VWSeparatorAddExpense"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/bubble2ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SPAddExpenseMoneyChoose"
+
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILAddExpenseCategory"
+            style="@style/modifiedTextInputLayout"
+            android:layout_margin="15dp"
+            app:hintTextColor="@color/bubble0ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/VWSeparatorAddExpense">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ETAddExpenseCategory"
+                style="@style/modifiedEditText"
+                android:autofillHints=""
+                android:backgroundTint="@color/bubble0ColorDark"
+                android:drawableStart="@drawable/ic_baseline_category_24"
+                android:hint="@string/create_a_group_description_hint"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/TWAddExpenseGroupFriendSpinnerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Choose to transfer friends"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/opensanssemibolditalic"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TILAddExpenseCategory" />
+
+
+        <Spinner
+            android:id="@+id/SPAddExpenseGroupFriendList"
+            style="@style/spinner_default_style"
+            android:layout_width="match_parent"
+            android:layout_height = "?attr/dropdownListPreferredItemHeight"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/TWAddExpenseGroupFriendSpinnerTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+        <View
+            android:id="@+id/VWAddExpenseFriendSpinnerSeparator"
+            android:background="@color/bubble0ColorDark"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical ="true"
+            android:layout_alignParentTop="true"
+            app:layout_constraintTop_toBottomOf="@+id/SPAddExpenseGroupFriendList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            />
         <Button
             android:id="@+id/BTNAddExpense"
             style="@style/loginButton"
@@ -81,7 +200,7 @@
             android:text="@string/add"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TILAddExpense" />
+            app:layout_constraintTop_toBottomOf="@+id/VWAddExpenseFriendSpinnerSeparator" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,7 +208,7 @@
         android:id="@+id/CLCreateAGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <TextView
@@ -150,10 +269,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="@string/money_prompt"
-            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/opensanssemibolditalic"
             android:gravity="center"
+            android:text="@string/money_prompt"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TILCreateAGroupDescription" />
@@ -161,9 +280,9 @@
 
         <Spinner
             android:id="@+id/SPCreateAGroupMoneyChoose"
-            android:layout_width="match_parent"
-            android:layout_height = "?attr/dropdownListPreferredItemHeight"
             style="@style/spinner_default_style"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/dropdownListPreferredItemHeight"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:entries="@array/money_arrays"
@@ -174,18 +293,37 @@
 
         <View
             android:id="@+id/VWSeparator"
-            android:background="@color/bubble2ColorDark"
-            android:layout_width = "match_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_centerVertical ="true"
             android:layout_alignParentTop="true"
-            app:layout_constraintTop_toBottomOf="@+id/SPCreateAGroupMoneyChoose"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:background="@color/bubble2ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SPCreateAGroupMoneyChoose"
 
             />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILCreateAGroupBudget"
+            style="@style/modifiedTextInputLayout"
+            android:layout_margin="15dp"
+            app:hintTextColor="@color/bubble0ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/VWSeparator">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ETCreateAGroupBudget"
+                style="@style/modifiedEditText"
+                android:autofillHints=""
+                android:backgroundTint="@color/bubble0ColorDark"
+                android:drawableStart="@drawable/ic_baseline_account_balance_wallet_24"
+                android:hint="Budget"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/BTNCreateAGroup"
@@ -195,7 +333,7 @@
             android:text="@string/create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/VWSeparator" />
+            app:layout_constraintTop_toBottomOf="@+id/TILCreateAGroupBudget" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

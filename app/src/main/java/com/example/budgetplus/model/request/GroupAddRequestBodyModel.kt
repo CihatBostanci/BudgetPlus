@@ -11,5 +11,7 @@ data class GroupAddRequestBodyModel(
     @SerializedName("moneyShortCut")
     var moneyShortCut: String,
     @SerializedName("userId")
-    var userId: Int
+    var userId: Int,
+    @SerializedName("budget")
+    var budget: Double
 )

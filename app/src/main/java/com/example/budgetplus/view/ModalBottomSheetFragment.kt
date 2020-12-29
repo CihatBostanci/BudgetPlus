@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.budgetplus.BudgetPlusApplication
@@ -14,9 +15,12 @@ import com.example.budgetplus.MainActivity
 import com.example.budgetplus.databinding.FragmentModalBottomSheetBinding
 import com.example.budgetplus.extensions.*
 import com.example.budgetplus.manager.SharedPreferencesManager.set
+import com.example.budgetplus.model.StateFriendSpinnerModel
 import com.example.budgetplus.model.request.GroupAddRequestBodyModel
+import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.*
+import com.example.budgetplus.view.adapter.FriendCheckListAdapter
 import com.example.budgetplus.viewmodel.GroupViewModel
 import com.example.budgetplus.viewmodel.datatransferviewmodel.GroupDetailsTransferViewModel
 import com.example.budgetplus.viewmodel.datatransferviewmodel.UserInfoTransferViewModel
@@ -51,6 +55,9 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
     //Transfer ViewModel
     private lateinit var _userInfoTransferViewModel: UserInfoTransferViewModel
     private lateinit var _groupDetailsTransferViewModel: GroupDetailsTransferViewModel
+
+    private var groupDetailsResponseModelLiveData =  MutableLiveData<GroupDetailsResponseModel?>()
+
 
 
     //View Binding
@@ -92,6 +99,10 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
 
         arguments?.let {
             actionMode = it.getString(FROM)
+            if( it.getParcelable<GroupDetailsResponseModel>(TRANSFER_GROUPS_FRIEND_LIST) as GroupDetailsResponseModel !=null){
+                val groupDetailsResponseModel:GroupDetailsResponseModel? =it.getParcelable<GroupDetailsResponseModel>(TRANSFER_GROUPS_FRIEND_LIST) as? GroupDetailsResponseModel
+                groupDetailsResponseModelLiveData.value = groupDetailsResponseModel
+            }
         }
 
     }
@@ -116,20 +127,55 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         actionMode?.let {
             when (it) {
                 CREATE_A_GROUP_ACTION -> {
-                    binding.CLAddExpense.hide()
-                    binding.CLCreateAGroup.show()
-                    binding.BTNCreateAGroup.setOnClickListener(this)
-
+                    setUIInitForCreateAGroup()
                 }
                 ADD_EXPENSE_ACTION -> {
-                    binding.CLAddExpense.show()
-                    binding.CLCreateAGroup.hide()
-                    binding.BTNAddExpense.setOnClickListener(this)
+                    setUIInitForAddExpense()
                 }
                 else -> {
                 }
             }
         }
+    }
+
+    private fun setUIInitForCreateAGroup() {
+        binding.CLAddExpense.hide()
+        binding.CLCreateAGroup.show()
+        binding.BTNCreateAGroup.setOnClickListener(this)
+    }
+
+    private fun setUIInitForAddExpense() {
+        binding.CLAddExpense.show()
+        binding.CLCreateAGroup.hide()
+        binding.BTNAddExpense.setOnClickListener(this)
+
+        val spinner = binding.SPAddExpenseGroupFriendList
+
+
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
+            {
+                if( it != null && it[0].userInfos.size > 0){
+                    val listVOfFriends: MutableList<StateFriendSpinnerModel> = mutableListOf()
+
+                    for (i in 0 until it[0].userInfos.size) {
+                        val stateVO = StateFriendSpinnerModel().apply {
+                            title =  it[0].userInfos[i].firstName + " " + it[0].userInfos[i].firstName
+                            isSelected = false
+                        }
+                        listVOfFriends.add(stateVO)
+                    }
+                    context?.let {
+                        val myAdapter = FriendCheckListAdapter(
+                            it, 0,
+                            listVOfFriends
+                        )
+                        spinner.adapter = myAdapter
+                    }
+                }
+
+            })
+
+
     }
 
     override fun onDestroyView() {
@@ -150,7 +196,8 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         binding.ETCreateAGroupDescription.text.toString(),
         binding.ETGroupName.text.toString(),
         binding.SPCreateAGroupMoneyChoose.selectedItem.toString(),
-        userInfoResponseModel.userId
+        userInfoResponseModel.userId,
+        binding.ETCreateAGroupBudget.text.toString().toDouble()
     )
 
     private fun createAGroupService() {

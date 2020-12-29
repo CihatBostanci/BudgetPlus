@@ -11,6 +11,8 @@ object SocketRepository {
 
     private lateinit var hubConnection: HubConnection
     private val SOCKETREPOSITORYTAG = "SOCKETTAG"
+
+
     fun setCreateHubConnection() {
 
         hubConnection = HubConnectionBuilder.create(connectionHubUrl).build()

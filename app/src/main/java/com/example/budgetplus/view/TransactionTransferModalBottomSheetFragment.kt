@@ -1,14 +1,19 @@
 package com.example.budgetplus.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.budgetplus.R
-import com.example.budgetplus.databinding.FragmentModalBottomSheetBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.example.budgetplus.databinding.FragmentTransactionTransferModalBottomSheetBinding
+import com.example.budgetplus.model.StateFriendSpinnerModel
+import com.example.budgetplus.model.response.GroupDetailsResponseModel
+import com.example.budgetplus.utils.FROM
+import com.example.budgetplus.utils.TRANSFER_GROUPS_FRIEND_LIST
+import com.example.budgetplus.view.adapter.FriendCheckListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,8 +31,9 @@ class TransactionTransferModalBottomSheetFragment :  BottomSheetDialogFragment()
     private var param2: String? = null
 
 
-    private val MODALBOTTOMSHEETTAG = "MODALBOTTOMSHEETFTAG"
+    private val TRANSACTIONTRANSFERMODALBOTTOMSHEETFRAGMENT = "TTRANSBMSTAG"
 
+    private var groupDetailsResponseModelLiveData =  MutableLiveData<GroupDetailsResponseModel?>()
 
     //View Binding
     // This property is only valid between onCreateView and
@@ -41,13 +47,24 @@ class TransactionTransferModalBottomSheetFragment :  BottomSheetDialogFragment()
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        arguments?.let {
+            if( it.getParcelable<GroupDetailsResponseModel>(TRANSFER_GROUPS_FRIEND_LIST) as GroupDetailsResponseModel? !=null){
+                val groupDetailsResponseModel:GroupDetailsResponseModel = it.getParcelable<GroupDetailsResponseModel>(TRANSFER_GROUPS_FRIEND_LIST) as GroupDetailsResponseModel
+                groupDetailsResponseModelLiveData.value = groupDetailsResponseModel
+            }
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTransactionTransferModalBottomSheetBinding.inflate(inflater, container, false)
+        _binding = FragmentTransactionTransferModalBottomSheetBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -58,8 +75,14 @@ class TransactionTransferModalBottomSheetFragment :  BottomSheetDialogFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUIInit()
+    }
+
+    private fun setUIInit() {
+
 
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

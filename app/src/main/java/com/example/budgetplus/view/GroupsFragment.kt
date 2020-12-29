@@ -23,6 +23,7 @@ import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.ADD_EXPENSE_ACTION
 import com.example.budgetplus.utils.CREATE_A_GROUP_ACTION
 import com.example.budgetplus.utils.FROM
+import com.example.budgetplus.utils.TRANSFER_GROUPS_FRIEND_LIST
 import com.example.budgetplus.view.adapter.GroupsAdapterWithViewPager
 import com.example.budgetplus.viewmodel.AccountViewModel
 import com.example.budgetplus.viewmodel.GroupViewModel
@@ -66,7 +67,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     //Navigation Component controller
     private lateinit var navController: NavController
 
-    private var groupDetailsResponseModelLiveData =  MutableLiveData<GroupDetailsResponseModel>()
+    private var groupDetailsResponseModelLiveData = MutableLiveData<GroupDetailsResponseModel>()
 
     val categories = listOf(
         "Group 1",
@@ -75,6 +76,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         "Group 4",
         "Group 5",
     )
+
     //Hub Connection
     private var hubConnection = MutableLiveData<HubConnection>()
 
@@ -160,10 +162,10 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
             {
-            val adapterWithViewPager = GroupsAdapterWithViewPager()
-            adapterWithViewPager.setItem(it)
-            binding.VPForGroup.adapter = adapterWithViewPager
-        })
+                val adapterWithViewPager = GroupsAdapterWithViewPager()
+                adapterWithViewPager.setItem(it)
+                binding.VPForGroup.adapter = adapterWithViewPager
+            })
 
 
     }
@@ -269,7 +271,16 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
     private fun transferTransactionAction() {
         Log.d(GROUPSFRAGMENTTAG, "send transfer pressed")
-        navController.navigate(R.id.action_groupsFragment_to_transactionTransferModalBottomSheetFragment)
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
+            {
+                val actionBundle = bundleOf(
+                    TRANSFER_GROUPS_FRIEND_LIST to it
+                )
+                navController.navigate(
+                    R.id.action_groupsFragment_to_transactionTransferModalBottomSheetFragment,
+                    actionBundle
+                )
+            })
     }
 
     private fun shareLinkAction() {
@@ -278,30 +289,38 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
     private fun addExpenseAction() {
         Log.d(GROUPSFRAGMENTTAG, "add expense pressed")
-        val fromActionBundle =
-            bundleOf(
-                FROM to ADD_EXPENSE_ACTION,
-            )
-        navController.navigate(
-            R.id.action_groupsFragment_to_modalBottomSheetFragment,
-            fromActionBundle
-        )
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
+            {
+                val fromActionBundle =
+                    bundleOf(
+                        FROM to ADD_EXPENSE_ACTION,
+                        TRANSFER_GROUPS_FRIEND_LIST to it
+                    )
+                navController.navigate(
+                    R.id.action_groupsFragment_to_modalBottomSheetFragment,
+                    fromActionBundle
+                )
+            })
+
 
     }
 
     private fun addGroupAction() {
         Log.d(GROUPSFRAGMENTTAG, "Create a group pressed")
-        val fromActionBundle =
-            bundleOf(
-                FROM to CREATE_A_GROUP_ACTION,
-            )
-        navController.navigate(
-            R.id.action_groupsFragment_to_modalBottomSheetFragment,
-            fromActionBundle
-        )
 
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
+            {
+                val fromActionBundle =
+                    bundleOf(
+                        FROM to CREATE_A_GROUP_ACTION,
+                        TRANSFER_GROUPS_FRIEND_LIST to it
+                    )
+                navController.navigate(
+                    R.id.action_groupsFragment_to_modalBottomSheetFragment,
+                    fromActionBundle
+                )
+            })
     }
-
 
 
     //Observers
@@ -314,7 +333,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     private val _groupDetailsObserver = Observer<GroupDetailsResponseModel> {
         Log.d(GROUPSFRAGMENTTAG, it.toString())
 
-            groupDetailsResponseModelLiveData.value = it
+        groupDetailsResponseModelLiveData.value = it
     }
 
     private val _socketObserver = Observer<HubConnection> {
