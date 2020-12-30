@@ -29,7 +29,7 @@ class GroupsViewHolder constructor(itemView: View) :
         if (groupInfo != null &&
             groupInfo.expenseGroup != null &&
             groupInfo.expenseGroup.groupedExpenses != null &&
-            groupInfo.expenseGroup.groupedExpenses.size > 1
+            groupInfo.expenseGroup.groupedExpenses.size >= 1
         ) {
 
             val anyChart = itemView.AAChartView as AnyChartView

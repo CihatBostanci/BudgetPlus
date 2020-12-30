@@ -2,7 +2,6 @@ package com.example.budgetplus.view
 
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +9,21 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.budgetplus.BudgetPlusApplication
 import com.example.budgetplus.MainActivity
 import com.example.budgetplus.databinding.FragmentModalBottomSheetBinding
 import com.example.budgetplus.extensions.*
-import com.example.budgetplus.manager.SharedPreferencesManager.set
 import com.example.budgetplus.model.StateFriendSpinnerModel
+import com.example.budgetplus.model.request.AddExpenseTransactionRequestBody
 import com.example.budgetplus.model.request.GroupAddRequestBodyModel
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.*
 import com.example.budgetplus.view.adapter.FriendCheckListAdapter
 import com.example.budgetplus.viewmodel.GroupViewModel
+import com.example.budgetplus.viewmodel.TransactionViewModel
 import com.example.budgetplus.viewmodel.datatransferviewmodel.GroupDetailsTransferViewModel
 import com.example.budgetplus.viewmodel.datatransferviewmodel.UserInfoTransferViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -51,13 +51,17 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
 
     //MVVM ViewModel
     private lateinit var groupViewModel: GroupViewModel
+    private lateinit var transactionViewModel: TransactionViewModel
 
     //Transfer ViewModel
     private lateinit var _userInfoTransferViewModel: UserInfoTransferViewModel
     private lateinit var _groupDetailsTransferViewModel: GroupDetailsTransferViewModel
 
-    private var groupDetailsResponseModelLiveData =  MutableLiveData<GroupDetailsResponseModel?>()
+    private var groupDetailsResponseModelLiveData = MutableLiveData<GroupDetailsResponseModel?>()
 
+
+    private val listCheckOfFriends: MutableList<StateFriendSpinnerModel> = mutableListOf()
+    private var adapter: FriendCheckListAdapter? = null
 
 
     //View Binding
@@ -90,6 +94,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         super.onCreate(savedInstanceState)
 
         groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         _userInfoTransferViewModel =
             ViewModelProvider(requireActivity())[UserInfoTransferViewModel::class.java]
@@ -99,10 +104,9 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
 
         arguments?.let {
             actionMode = it.getString(FROM)
-            if( it.getParcelable<GroupDetailsResponseModel>(TRANSFER_GROUPS_FRIEND_LIST) as GroupDetailsResponseModel !=null){
-                val groupDetailsResponseModel:GroupDetailsResponseModel? =it.getParcelable<GroupDetailsResponseModel>(TRANSFER_GROUPS_FRIEND_LIST) as? GroupDetailsResponseModel
-                groupDetailsResponseModelLiveData.value = groupDetailsResponseModel
-            }
+            val groupDetailsResponseModel: GroupDetailsResponseModel? =
+                it.getParcelable(TRANSFER_GROUPS_FRIEND_LIST) as? GroupDetailsResponseModel
+            groupDetailsResponseModelLiveData.value = groupDetailsResponseModel
         }
 
     }
@@ -154,28 +158,34 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
 
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
             {
-                if( it != null && it[0].userInfos.size > 0){
-                    val listVOfFriends: MutableList<StateFriendSpinnerModel> = mutableListOf()
+                if (it != null && it[0].userInfos.size > 0) {
+
+
+                    listCheckOfFriends.add(
+                        StateFriendSpinnerModel(
+                            title = SPINNER_TITLE_ITEM,
+                            isSelected = false,
+                            userId = 0
+                        )
+                    )
 
                     for (i in 0 until it[0].userInfos.size) {
                         val stateVO = StateFriendSpinnerModel().apply {
-                            title =  it[0].userInfos[i].firstName + " " + it[0].userInfos[i].firstName
+                            title = it[0].userInfos[i].firstName + " " + it[0].userInfos[i].lastName
                             isSelected = false
+                            userId = it[0].userInfos[i].id
                         }
-                        listVOfFriends.add(stateVO)
+                        listCheckOfFriends.add(stateVO)
                     }
                     context?.let {
-                        val myAdapter = FriendCheckListAdapter(
+                        adapter = FriendCheckListAdapter(
                             it, 0,
-                            listVOfFriends
+                            listCheckOfFriends
                         )
-                        spinner.adapter = myAdapter
+                        spinner.adapter = adapter
                     }
                 }
-
             })
-
-
     }
 
     override fun onDestroyView() {
@@ -236,8 +246,70 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         return validationFlag
     }
 
+    private fun getAddExpenseTransactionRequestBody() = AddExpenseTransactionRequestBody(
+        whoAdded = 3,
+        amount = binding.ETAddExpense.text.toString().toDouble(),
+        category = binding.ETAddExpenseCategory.text.toString(),
+        description = binding.ETAddExpenseDescription.text.toString(),
+        groupId = 1,
+        transactionType = "TRY",
+        relatedUserIds = getFriendCheckList()
+    )
+
+    private fun getFriendCheckList(): MutableList<Int> {
+        var bodyList = mutableListOf<Int>()
+        adapter?.let { adapterNonNull ->
+            for (i in adapterNonNull.retriveList())
+                if (i.isSelected)
+                    bodyList.add(i.userId)
+
+        }
+        return bodyList
+    }
+
+    private fun checkAddExpenseValidation(): Boolean {
+        var validationFlag = true
+        if (binding.ETAddExpenseGroupName.text.toString().isEmpty()) {
+            binding.TILAddExpenseGroupName.error = GROUP_NAME_ERROR_MESSAGE
+            validationFlag = false
+            return validationFlag
+        } else {
+            binding.TILAddExpenseGroupName.isErrorEnabled = false
+        }
+        if (binding.ETAddExpenseDescription.text.toString().isEmpty()) {
+            binding.TILAddExpenseDescription.error = ADD_EXPENSE_DESCRIPTION_ERROR_MESSAGE
+            validationFlag = false
+            return validationFlag
+        } else {
+            binding.TILAddExpenseDescription.isErrorEnabled = false
+        }
+        if (binding.ETAddExpense.text.toString().isEmpty()) {
+            binding.TILAddExpense.error = ADD_EXPENSE_ERROR_MESSAGE
+            validationFlag = false
+            return validationFlag
+        } else {
+            binding.TILAddExpense.isErrorEnabled = false
+        }
+        if (binding.ETAddExpenseCategory.text.toString().isEmpty()) {
+            binding.TILAddExpenseCategory.error = ADD_EXPENSE_CATEGORY_ERROR_MESSAGE
+            validationFlag = false
+            return validationFlag
+        } else {
+            binding.TILAddExpenseCategory.isErrorEnabled = false
+        }
+
+
+
+        return validationFlag
+
+    }
+
+
     private fun addExpenseService() {
         Log.d(MODALBOTTOMSHEETTAG, "add triggered.")
+        if (checkAddExpenseValidation())
+            transactionViewModel.addExpense(getAddExpenseTransactionRequestBody())
+                .observe(viewLifecycleOwner, _addExpenseTransactionObserver)
     }
 
     //Observers
@@ -249,16 +321,42 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         when (it.status) {
             Status.ERROR -> {
                 (requireActivity() as MainActivity).hide()
-                Toast.makeText(requireContext(), it.message ?: ERROR_MESSAGE,
-                    Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(), it.message ?: ERROR_MESSAGE,
+                    Toast.LENGTH_LONG
+                ).show()
             }
             Status.LOADING -> {
                 (requireActivity() as MainActivity).show()
             }
             Status.SUCCESS -> {
                 (requireActivity() as MainActivity).hide()
-                Toast.makeText(requireContext(), SUCCESS_MESSAGE,
-                    Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(), SUCCESS_MESSAGE,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private val _addExpenseTransactionObserver = Observer<Resource<Boolean>> {
+        when (it.status) {
+            Status.ERROR -> {
+                (requireActivity() as MainActivity).hide()
+                Toast.makeText(
+                    requireContext(), it.message ?: ERROR_MESSAGE,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            Status.LOADING -> {
+                (requireActivity() as MainActivity).show()
+            }
+            Status.SUCCESS -> {
+                (requireActivity() as MainActivity).hide()
+                Toast.makeText(
+                    requireContext(), SUCCESS_MESSAGE,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

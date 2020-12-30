@@ -10,6 +10,7 @@ import com.example.budgetplus.databinding.FragmentTransactionTransferModalBottom
 import com.example.budgetplus.model.StateFriendSpinnerModel
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.utils.FROM
+import com.example.budgetplus.utils.SPINNER_TITLE_ITEM
 import com.example.budgetplus.utils.TRANSFER_GROUPS_FRIEND_LIST
 import com.example.budgetplus.view.adapter.FriendCheckListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -80,6 +81,31 @@ class TransactionTransferModalBottomSheetFragment :  BottomSheetDialogFragment()
 
     private fun setUIInit() {
 
+        val spinner = binding.SPTransferTransactionGroupFriendList
+
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
+            {
+                if( it != null && it[0].userInfos.size > 0){
+                    val listVOfFriends: MutableList<StateFriendSpinnerModel> = mutableListOf()
+
+                    listVOfFriends.add(StateFriendSpinnerModel( title= SPINNER_TITLE_ITEM, isSelected = false,userId = 0))
+
+                    for (i in 0 until it[0].userInfos.size) {
+                        val stateVO = StateFriendSpinnerModel().apply {
+                            title =  it[0].userInfos[i].firstName + " " + it[0].userInfos[i].lastName
+                            isSelected = false
+                        }
+                        listVOfFriends.add(stateVO)
+                    }
+                    context?.let {
+                        val myAdapter = FriendCheckListAdapter(
+                            it, 0,
+                            listVOfFriends
+                        )
+                        spinner.adapter = myAdapter
+                    }
+                }
+            })
 
     }
 

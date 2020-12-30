@@ -34,7 +34,7 @@
         </TextView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TILAddExpenseGroupNo"
+            android:id="@+id/TILAddExpenseGroupName"
             style="@style/modifiedTextInputLayout"
             android:layout_margin="15dp"
             app:hintTextColor="@color/bubble1ColorDark"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/TWAddExpenseTitle">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ETGroupNo"
+                android:id="@+id/ETAddExpenseGroupName"
                 style="@style/modifiedEditText"
                 android:autofillHints=""
                 android:backgroundTint="@color/bubble1ColorDark"
@@ -59,7 +59,7 @@
             app:hintTextColor="@color/bubble3ColorDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TILAddExpenseGroupNo">
+            app:layout_constraintTop_toBottomOf="@+id/TILAddExpenseGroupName">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ETAddExpenseDescription"
@@ -90,47 +90,7 @@
                 android:hint="@string/add_expense_hint"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/TWAddExpenseTitleMoneySpinnerTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:fontFamily="@font/opensanssemibolditalic"
-            android:gravity="center"
-            android:text="@string/money_prompt"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TILAddExpense" />
 
-
-        <Spinner
-            android:id="@+id/SPAddExpenseMoneyChoose"
-            style="@style/spinner_default_style"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/dropdownListPreferredItemHeight"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:entries="@array/money_arrays"
-            android:prompt="@string/money_prompt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TWAddExpenseTitleMoneySpinnerTitle" />
-
-        <View
-            android:id="@+id/VWSeparatorAddExpense"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="@color/bubble2ColorDark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SPAddExpenseMoneyChoose"
-
-            />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TILAddExpenseCategory"
             style="@style/modifiedTextInputLayout"
@@ -138,7 +98,7 @@
             app:hintTextColor="@color/bubble0ColorDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/VWSeparatorAddExpense">
+            app:layout_constraintTop_toBottomOf="@+id/TILAddExpense">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ETAddExpenseCategory"
@@ -146,7 +106,7 @@
                 android:autofillHints=""
                 android:backgroundTint="@color/bubble0ColorDark"
                 android:drawableStart="@drawable/ic_baseline_category_24"
-                android:hint="@string/create_a_group_description_hint"
+                android:hint="Category Description"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Choose to transfer friends"
+            android:text="Choose to related friends"
             android:textColor="@color/colorPrimary"
             android:fontFamily="@font/opensanssemibolditalic"
             android:gravity="center"

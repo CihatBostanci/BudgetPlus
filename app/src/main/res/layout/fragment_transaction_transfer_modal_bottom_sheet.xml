@@ -64,11 +64,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/TWTransactionTransferTitleMoneySpinnerTitle"
+            android:id="@+id/TWTransaferTransactionGroupFriendSpinnerTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="@string/money_prompt"
+            android:text="Choose to related friends"
             android:textColor="@color/colorPrimary"
             android:fontFamily="@font/opensanssemibolditalic"
             android:gravity="center"
@@ -78,26 +78,26 @@
 
 
         <Spinner
-            android:id="@+id/SPTransactiontransferMoneyChoose"
+            android:id="@+id/SPTransferTransactionGroupFriendList"
             style="@style/spinner_default_style"
             android:layout_width="match_parent"
             android:layout_height = "?attr/dropdownListPreferredItemHeight"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:entries="@array/money_arrays"
-            android:prompt="@string/money_prompt"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWTransaferTransactionGroupFriendSpinnerTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TWTransactionTransferTitleMoneySpinnerTitle" />
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
 
         <View
-            android:id="@+id/VWTransferTransactionSeparator"
-            android:background="@color/bubble1ColorDark"
+            android:id="@+id/VWTransferTransactionFriendSpinnerSeparator"
+            android:background="@color/bubble0ColorDark"
             android:layout_width = "match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical ="true"
             android:layout_alignParentTop="true"
-            app:layout_constraintTop_toBottomOf="@+id/SPTransactiontransferMoneyChoose"
+            app:layout_constraintTop_toBottomOf="@+id/SPTransferTransactionGroupFriendList"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="15dp"
@@ -113,7 +113,7 @@
             android:text="Send"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/VWTransferTransactionSeparator" />
+            app:layout_constraintTop_toBottomOf="@+id/VWTransferTransactionFriendSpinnerSeparator" />
 
 
 

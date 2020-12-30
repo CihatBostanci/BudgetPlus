@@ -77,6 +77,10 @@ const val GET_USER_INFO_SERVICE = "/Account/GetUserInfos"
 const val GET_GROUP_DETAILS_SERVICE = "/Group/GetGroupDetails"
 const val ADD_GROUP_SERVICE = "/Group/Add"
 
+//Transaction Service Constant
+const val  ADD_EXPENSE = "/Transaction/AddExpense"
+const val  ADD_TRANSFER = "/Transaction/AddTransfer"
+
 //*****************SERVICE MESSAGE****************************
 const val SUCCESS_MESSAGE = "Success"
 const val ERROR_MESSAGE = "Error"
@@ -103,4 +107,13 @@ const val TRANSFER_GROUPS_FRIEND_LIST = "FRIENDLIST"
 //*****************CREATE A GROUP ERROR MESSAGE*********************
 const val GROUP_DESCRIPTION_ERROR_MESSAGE= "Group Description cannot empty"
 const val GROUP_NAME_ERROR_MESSAGE= "Group Name cannot empty"
+
+
+//****************Add Expense*********************
+const val SPINNER_TITLE_ITEM = "Please select friends"
+
+//*****************ADD Expense ERROR MESSAGE*********************
+const val ADD_EXPENSE_DESCRIPTION_ERROR_MESSAGE = "Description cannot be empty"
+const val ADD_EXPENSE_ERROR_MESSAGE = "Expense cannot be empty"
+const val ADD_EXPENSE_CATEGORY_ERROR_MESSAGE = "Category cannot be empty"
 

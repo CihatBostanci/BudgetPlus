@@ -7,18 +7,22 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetplus.R
 import com.example.budgetplus.extensions.invisible
 import com.example.budgetplus.extensions.show
 import com.example.budgetplus.model.StateFriendSpinnerModel
 
 
-class FriendCheckListAdapter(context: Context, resource: Int, objects: List<StateFriendSpinnerModel>) :
+class FriendCheckListAdapter(
+    context: Context,
+    resource: Int,
+    objects: List<StateFriendSpinnerModel>
+) :
     ArrayAdapter<StateFriendSpinnerModel?>(context, resource, objects) {
 
     private val mContext: Context = context
-    private val listState: ArrayList<StateFriendSpinnerModel> = objects as ArrayList<StateFriendSpinnerModel>
+    private val listState: MutableList<StateFriendSpinnerModel> =
+        objects as MutableList<StateFriendSpinnerModel>
     private val myAdapter: FriendCheckListAdapter = this
     private var isFromView = false
 
@@ -56,6 +60,7 @@ class FriendCheckListAdapter(context: Context, resource: Int, objects: List<Stat
         holder.mCheckBox!!.isChecked = listState[position].isSelected
         isFromView = false
         if (position == 0) {
+
             holder.mCheckBox!!.invisible()
         } else {
             holder.mCheckBox!!.show()
@@ -69,7 +74,9 @@ class FriendCheckListAdapter(context: Context, resource: Int, objects: List<Stat
         }
         return convertView!!
     }
-
+    fun retriveList():MutableList<StateFriendSpinnerModel>{
+        return listState
+    }
     private inner class ViewHolder {
         var mTextView: TextView? = null
         var mCheckBox: CheckBox? = null
