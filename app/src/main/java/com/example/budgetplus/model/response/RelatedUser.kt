@@ -11,6 +11,7 @@ data class RelatedUser(
     @SerializedName("userId")
     var userId: Int
 ) {
+    constructor():this("","",0)
     override fun toString(): String {
         return "RelatedUser(firstName='$firstName', lastName='$lastName', userId=$userId)"
     }

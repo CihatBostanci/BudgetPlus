@@ -26,10 +26,9 @@ class GroupsViewHolder constructor(itemView: View) :
     fun bind(groupInfo: GroupDetailsResponseModelItem) {
 
 
-        if (groupInfo != null &&
-            groupInfo.expenseGroup != null &&
-            groupInfo.expenseGroup.groupedExpenses != null &&
-            groupInfo.expenseGroup.groupedExpenses.size >= 1
+        if (groupInfo != null && groupInfo.expenseGroup!=null
+            && groupInfo.expenseGroup.groupedExpenses != null
+            && groupInfo.expenseGroup.groupedExpenses.size >= 1
         ) {
 
             val anyChart = itemView.AAChartView as AnyChartView
@@ -39,6 +38,7 @@ class GroupsViewHolder constructor(itemView: View) :
             val pie = AnyChart.pie()
 
             val data: MutableList<DataEntry> = ArrayList()
+
             for (groupedExpens in groupInfo.expenseGroup.groupedExpenses) {
                 data.add(ValueDataEntry(groupedExpens.category, groupedExpens.categoryTotal))
             }
@@ -52,7 +52,7 @@ class GroupsViewHolder constructor(itemView: View) :
                     .fontSize("35")
                     .fontColor("#4a154b")
 
-                groupInfo.description?.let{description->
+                groupInfo.description?.let { description ->
                     pie.legend().title()
                         .text(description)
                         .fontStyle("italic")

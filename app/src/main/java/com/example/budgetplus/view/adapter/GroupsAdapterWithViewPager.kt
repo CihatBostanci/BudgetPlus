@@ -26,4 +26,5 @@ class GroupsAdapterWithViewPager : RecyclerView.Adapter<GroupsViewHolder>() {
 
     override fun getItemCount(): Int = list.size
 
+
 }

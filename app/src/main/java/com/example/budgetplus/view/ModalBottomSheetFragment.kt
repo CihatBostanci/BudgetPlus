@@ -1,21 +1,25 @@
 package com.example.budgetplus.view
 
+import android.R
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.budgetplus.BaseActivity
 import com.example.budgetplus.MainActivity
 import com.example.budgetplus.databinding.FragmentModalBottomSheetBinding
-import com.example.budgetplus.extensions.*
+import com.example.budgetplus.extensions.hide
+import com.example.budgetplus.extensions.show
 import com.example.budgetplus.model.StateFriendSpinnerModel
 import com.example.budgetplus.model.request.AddExpenseTransactionRequestBody
 import com.example.budgetplus.model.request.GroupAddRequestBodyModel
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
+import com.example.budgetplus.model.response.GroupDetailsResponseModelItem
 import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.*
 import com.example.budgetplus.view.adapter.FriendCheckListAdapter
@@ -57,7 +61,8 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
     private lateinit var _userInfoTransferViewModel: UserInfoTransferViewModel
     private lateinit var _groupDetailsTransferViewModel: GroupDetailsTransferViewModel
 
-    private var groupDetailsResponseModelLiveData = MutableLiveData<GroupDetailsResponseModel?>()
+    private var groupDetailsResponseModelLiveData = MutableLiveData<GroupDetailsResponseModelItem?>()
+    private var takeGroupId: Int = 0
 
 
     private val listCheckOfFriends: MutableList<StateFriendSpinnerModel> = mutableListOf()
@@ -98,14 +103,16 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
 
         _userInfoTransferViewModel =
             ViewModelProvider(requireActivity())[UserInfoTransferViewModel::class.java]
+        _userInfoTransferViewModel._userInfoResponseModel.observe(this, _userObserver)
+
         _groupDetailsTransferViewModel =
             ViewModelProvider(requireActivity())[GroupDetailsTransferViewModel::class.java]
 
 
         arguments?.let {
             actionMode = it.getString(FROM)
-            val groupDetailsResponseModel: GroupDetailsResponseModel? =
-                it.getParcelable(TRANSFER_GROUPS_FRIEND_LIST) as? GroupDetailsResponseModel
+            val groupDetailsResponseModel: GroupDetailsResponseModelItem? =
+                it.getSerializable(TRANSFER_GROUPS_FRIEND_LIST) as? GroupDetailsResponseModelItem
             groupDetailsResponseModelLiveData.value = groupDetailsResponseModel
         }
 
@@ -126,7 +133,6 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
 
     private fun setUIInit() {
 
-        _userInfoTransferViewModel._userInfoResponseModel.observe(viewLifecycleOwner, _userObserver)
 
         actionMode?.let {
             when (it) {
@@ -153,39 +159,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         binding.CLCreateAGroup.hide()
         binding.BTNAddExpense.setOnClickListener(this)
 
-        val spinner = binding.SPAddExpenseGroupFriendList
-
-
-        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
-            {
-                if (it != null && it[0].userInfos.size > 0) {
-
-
-                    listCheckOfFriends.add(
-                        StateFriendSpinnerModel(
-                            title = SPINNER_TITLE_ITEM,
-                            isSelected = false,
-                            userId = 0
-                        )
-                    )
-
-                    for (i in 0 until it[0].userInfos.size) {
-                        val stateVO = StateFriendSpinnerModel().apply {
-                            title = it[0].userInfos[i].firstName + " " + it[0].userInfos[i].lastName
-                            isSelected = false
-                            userId = it[0].userInfos[i].id
-                        }
-                        listCheckOfFriends.add(stateVO)
-                    }
-                    context?.let {
-                        adapter = FriendCheckListAdapter(
-                            it, 0,
-                            listCheckOfFriends
-                        )
-                        spinner.adapter = adapter
-                    }
-                }
-            })
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner, _adapterObserver)
     }
 
     override fun onDestroyView() {
@@ -235,7 +209,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
 
         if (!groupNameValidation()) return false
 
-        if (binding.ETCreateAGroupDescription.text.toString().isEmpty()) {
+        if (binding.ETAddExpenseDescription.text.toString().isEmpty()) {
             binding.TILCreateAGroupDescription.error = GROUP_DESCRIPTION_ERROR_MESSAGE
             validationFlag = false
             return validationFlag
@@ -247,20 +221,21 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
     }
 
     private fun getAddExpenseTransactionRequestBody() = AddExpenseTransactionRequestBody(
-        whoAdded = 3,
-        amount = binding.ETAddExpense.text.toString().toDouble(),
-        category = binding.ETAddExpenseCategory.text.toString(),
-        description = binding.ETAddExpenseDescription.text.toString(),
-        groupId = 1,
-        transactionType = "TRY",
-        relatedUserIds = getFriendCheckList()
+              whoAdded = userInfoResponseModel.userId,
+              amount = binding.ETAddExpense.text.toString().toDouble(),
+              category = binding.SPAddExpenseCategoryList.selectedItem.toString(),
+              description = binding.ETAddExpenseDescription.text.toString(),
+              groupId = takeGroupId,
+              transactionType = "TRY",
+              relatedUserIds = getFriendCheckList()
     )
+
 
     private fun getFriendCheckList(): MutableList<Int> {
         var bodyList = mutableListOf<Int>()
         adapter?.let { adapterNonNull ->
             for (i in adapterNonNull.retriveList())
-                if (i.isSelected)
+                if (i.isSelected && i.userId != 0)
                     bodyList.add(i.userId)
 
         }
@@ -290,14 +265,6 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         } else {
             binding.TILAddExpense.isErrorEnabled = false
         }
-        if (binding.ETAddExpenseCategory.text.toString().isEmpty()) {
-            binding.TILAddExpenseCategory.error = ADD_EXPENSE_CATEGORY_ERROR_MESSAGE
-            validationFlag = false
-            return validationFlag
-        } else {
-            binding.TILAddExpenseCategory.isErrorEnabled = false
-        }
-
 
 
         return validationFlag
@@ -321,20 +288,16 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         when (it.status) {
             Status.ERROR -> {
                 (requireActivity() as MainActivity).hide()
-                Toast.makeText(
-                    requireContext(), it.message ?: ERROR_MESSAGE,
-                    Toast.LENGTH_LONG
-                ).show()
+                (requireActivity() as BaseActivity).showToast(it.message ?: ERROR_MESSAGE)
+                this.dismiss()
             }
             Status.LOADING -> {
                 (requireActivity() as MainActivity).show()
             }
             Status.SUCCESS -> {
-                (requireActivity() as MainActivity).hide()
-                Toast.makeText(
-                    requireContext(), SUCCESS_MESSAGE,
-                    Toast.LENGTH_LONG
-                ).show()
+                (requireActivity() as BaseActivity).hide()
+                (requireActivity() as BaseActivity).showToast(SUCCESS_MESSAGE)
+                this.dismiss()
             }
         }
     }
@@ -343,20 +306,69 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         when (it.status) {
             Status.ERROR -> {
                 (requireActivity() as MainActivity).hide()
-                Toast.makeText(
-                    requireContext(), it.message ?: ERROR_MESSAGE,
-                    Toast.LENGTH_LONG
-                ).show()
+                (requireActivity() as BaseActivity).showToast(it.message ?: ERROR_MESSAGE)
+                this.dismiss()
+
             }
             Status.LOADING -> {
-                (requireActivity() as MainActivity).show()
+                (requireActivity() as BaseActivity).show()
             }
             Status.SUCCESS -> {
-                (requireActivity() as MainActivity).hide()
-                Toast.makeText(
-                    requireContext(), SUCCESS_MESSAGE,
-                    Toast.LENGTH_LONG
-                ).show()
+                (requireActivity() as BaseActivity).hide()
+                (requireActivity() as BaseActivity).showToast(SUCCESS_MESSAGE)
+                this.dismiss()
+
+            }
+        }
+    }
+
+    private val _adapterObserver = Observer<GroupDetailsResponseModelItem?> {
+
+        binding.ETAddExpenseGroupName.isFocusable = false
+        binding.ETAddExpenseGroupName.isClickable = true
+        binding.ETAddExpenseGroupName.setText(it.name)
+
+        val spinnerFriendList = binding.SPAddExpenseGroupFriendList
+        val spinnerCategoryList = binding.SPAddExpenseCategoryList
+        val mutableCategoryNames = mutableListOf<String>()
+
+        //Load Category
+        if (it != null) {
+            takeGroupId = it.groupId
+            mutableCategoryNames.clear()
+            for (i in it.expenseCategories) {
+                mutableCategoryNames.add(i.name)
+            }
+            val adapterCategoryList = ArrayAdapter(
+                requireContext(),
+                R.layout.simple_spinner_item, mutableCategoryNames
+            )
+            spinnerCategoryList.adapter = adapterCategoryList
+        }
+
+        //Load Friend Check List
+        if (it != null && it.userInfos.size > 0) {
+            listCheckOfFriends.add(
+                StateFriendSpinnerModel(
+                    title = SPINNER_TITLE_ITEM,
+                    isSelected = false,
+                    userId = 0
+                )
+            )
+            for (i in 0 until it.userInfos.size) {
+                val stateVO = StateFriendSpinnerModel().apply {
+                    title = it.userInfos[i].firstName + " " + it.userInfos[i].lastName
+                    isSelected = true
+                    userId = it.userInfos[i].id
+                }
+                listCheckOfFriends.add(stateVO)
+            }
+            context?.let {
+                adapter = FriendCheckListAdapter(
+                    it, 0,
+                    listCheckOfFriends
+                )
+                spinnerFriendList.adapter = adapter
             }
         }
     }

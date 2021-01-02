@@ -39,7 +39,7 @@ class MainActivity : BaseActivity() {
     private fun setBottomNavigation() {
         binding.bottomNavigation.setNavigationChangeListener { view , _ ->
             when(view.id){
-                binding.cItemGroups.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_groupsFragment)
+                 binding.cItemGroups.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_groupsFragment)
                 binding.cItemNotification.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_notificationFragment)
                 binding.cItemMore.id -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_accountFragment)
             }

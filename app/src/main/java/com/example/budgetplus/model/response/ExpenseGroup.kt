@@ -7,5 +7,5 @@ data class ExpenseGroup(
     @SerializedName("groupedExpenses")
     var groupedExpenses: MutableList<GroupedExpense>,
     @SerializedName("total")
-    var total: Double
+    var total: Int
 )

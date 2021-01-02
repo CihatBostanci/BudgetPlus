@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.TextView
 import com.example.budgetplus.R
+import com.example.budgetplus.extensions.hide
 import com.example.budgetplus.extensions.invisible
 import com.example.budgetplus.extensions.show
 import com.example.budgetplus.model.StateFriendSpinnerModel
@@ -42,7 +43,7 @@ class FriendCheckListAdapter(
         parent: ViewGroup?
     ): View {
         var convertView: View? = convertView
-        var holder: ViewHolder
+        val holder: ViewHolder
         if (convertView == null) {
             val layoutInflator = LayoutInflater.from(mContext)
             convertView = layoutInflator.inflate(R.layout.friend_check_list_item, null)
@@ -55,13 +56,12 @@ class FriendCheckListAdapter(
         }
         holder.mTextView?.text = listState[position].title
 
-        // To check weather checked event fire from getview() or user input
         isFromView = true
         holder.mCheckBox!!.isChecked = listState[position].isSelected
         isFromView = false
         if (position == 0) {
-
-            holder.mCheckBox!!.invisible()
+            holder.mCheckBox!!.isChecked = false
+            holder.mCheckBox!!.hide()
         } else {
             holder.mCheckBox!!.show()
         }

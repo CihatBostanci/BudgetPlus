@@ -1,6 +1,7 @@
 package com.example.budgetplus.repository.service
 
 import com.example.budgetplus.model.request.AddExpenseTransactionRequestBody
+import com.example.budgetplus.model.request.AddTransferTransactionRequestBodyModel
 import com.example.budgetplus.model.request.RegisterRequestBodyModel
 import com.example.budgetplus.utils.ADD_EXPENSE
 import com.example.budgetplus.utils.ADD_TRANSFER
@@ -19,6 +20,8 @@ interface TransactionService {
     ): ResponseBody
 
     @POST(ADD_TRANSFER)
-    suspend fun addTransfer(): ResponseBody
+    suspend fun addTransfer(
+        @Body addTransferTransactionRequestBodyModel: AddTransferTransactionRequestBodyModel
+    ): ResponseBody
 
 }

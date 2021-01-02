@@ -4,26 +4,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.budgetplus.MainActivity
 import com.example.budgetplus.R
 import com.example.budgetplus.databinding.FragmentGroupsBinding
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
 import com.example.budgetplus.model.response.UserInfoResponseModel
-import com.example.budgetplus.utils.ADD_EXPENSE_ACTION
-import com.example.budgetplus.utils.CREATE_A_GROUP_ACTION
-import com.example.budgetplus.utils.FROM
-import com.example.budgetplus.utils.TRANSFER_GROUPS_FRIEND_LIST
+import com.example.budgetplus.utils.*
 import com.example.budgetplus.view.adapter.GroupsAdapterWithViewPager
 import com.example.budgetplus.viewmodel.AccountViewModel
 import com.example.budgetplus.viewmodel.GroupViewModel
@@ -67,15 +61,11 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     //Navigation Component controller
     private lateinit var navController: NavController
 
+    //Transfer Live data to handle other views
     private var groupDetailsResponseModelLiveData = MutableLiveData<GroupDetailsResponseModel>()
 
-    val categories = listOf(
-        "Group 1",
-        "Group 2",
-        "Group 3",
-        "Group 4",
-        "Group 5",
-    )
+    //adapter
+    private val adapterWithViewPager = GroupsAdapterWithViewPager()
 
     //Hub Connection
     private var hubConnection = MutableLiveData<HubConnection>()
@@ -86,6 +76,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     private var _binding: FragmentGroupsBinding? = null
     private val binding get() = _binding!!
 
+    //Test Variables
     private var chat: String = ""
     private var message: String = ""
     private var groupName = "Group1"
@@ -147,6 +138,8 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
             _groupDetailsObserver
         )
         setViewPagerAdapter()
+
+        //Set Click Listeners
         binding.BTNJoinGroup.setOnClickListener(this)
         binding.BTNSendGroup.setOnClickListener(this)
 
@@ -162,11 +155,9 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
             {
-                val adapterWithViewPager = GroupsAdapterWithViewPager()
                 adapterWithViewPager.setItem(it)
                 binding.VPForGroup.adapter = adapterWithViewPager
             })
-
 
     }
 
@@ -273,8 +264,9 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         Log.d(GROUPSFRAGMENTTAG, "send transfer pressed")
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
             {
+                val currentDetailItem = it[binding.VPForGroup.currentItem]
                 val actionBundle = bundleOf(
-                    TRANSFER_GROUPS_FRIEND_LIST to it
+                    TRANSFER_GROUPS_FRIEND_LIST to currentDetailItem
                 )
                 navController.navigate(
                     R.id.action_groupsFragment_to_transactionTransferModalBottomSheetFragment,
@@ -291,10 +283,11 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         Log.d(GROUPSFRAGMENTTAG, "add expense pressed")
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
             {
+                val currentDetailItem = it[binding.VPForGroup.currentItem]
                 val fromActionBundle =
                     bundleOf(
                         FROM to ADD_EXPENSE_ACTION,
-                        TRANSFER_GROUPS_FRIEND_LIST to it
+                        TRANSFER_GROUPS_FRIEND_LIST to currentDetailItem
                     )
                 navController.navigate(
                     R.id.action_groupsFragment_to_modalBottomSheetFragment,
@@ -310,10 +303,11 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
             {
+                val currentDetailItem = it[binding.VPForGroup.currentItem]
                 val fromActionBundle =
                     bundleOf(
                         FROM to CREATE_A_GROUP_ACTION,
-                        TRANSFER_GROUPS_FRIEND_LIST to it
+                        TRANSFER_GROUPS_FRIEND_LIST to currentDetailItem,
                     )
                 navController.navigate(
                     R.id.action_groupsFragment_to_modalBottomSheetFragment,

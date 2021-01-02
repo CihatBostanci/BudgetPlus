@@ -32,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity(), ProgressDisplay{
     }
 
     fun showToast(message:String?){
-        Toast.makeText(this, message ?: ERROR_MESSAGE, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, message ?: "Message is null", Toast.LENGTH_LONG).show()
     }
 
 }

@@ -26,13 +26,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILTransferTransactionGroupName"
+            style="@style/modifiedTextInputLayout"
+            android:layout_margin="15dp"
+            app:hintTextColor="@color/bubble1ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWTransactionTransferTitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ETTransferTransactionGroupName"
+                style="@style/modifiedEditText"
+                android:autofillHints=""
+                android:backgroundTint="@color/bubble1ColorDark"
+                android:drawableStart="@drawable/ic_baseline_group_add_24"
+                android:hint="@string/create_a_group_name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TILTransferTransactionExpense"
             style="@style/modifiedTextInputLayout"
             android:layout_margin="15dp"
             app:hintTextColor="@color/bubble2ColorDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TWTransactionTransferTitle">
+            app:layout_constraintTop_toBottomOf="@+id/TILTransferTransactionGroupName">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ETTransferExpense"
@@ -41,7 +60,7 @@
                 android:backgroundTint="@color/bubble2ColorDark"
                 android:drawableStart="@drawable/ic_baseline_post_add_24"
                 android:hint="@string/add_expense_hint"
-                android:inputType="number"/>
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -54,9 +73,11 @@
             app:layout_constraintTop_toBottomOf="@+id/TILTransferTransactionExpense">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ETCreateAGroupDescription"
+                android:id="@+id/ETTransactionGroupDescription"
                 style="@style/modifiedEditText"
                 android:autofillHints=""
+                android:maxLines="1"
+                android:maxLength="20"
                 android:backgroundTint="@color/bubble3ColorDark"
                 android:drawableStart="@drawable/ic_baseline_description_24"
                 android:hint="Transfer Description"
@@ -68,10 +89,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Choose to related friends"
-            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/opensanssemibolditalic"
             android:gravity="center"
+            android:text="Choose to related friends"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TILTransactionTransferDescription" />
@@ -81,28 +102,26 @@
             android:id="@+id/SPTransferTransactionGroupFriendList"
             style="@style/spinner_default_style"
             android:layout_width="match_parent"
-            android:layout_height = "?attr/dropdownListPreferredItemHeight"
+            android:layout_height="?attr/dropdownListPreferredItemHeight"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            app:layout_constraintTop_toBottomOf="@+id/TWTransaferTransactionGroupFriendSpinnerTitle"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TWTransaferTransactionGroupFriendSpinnerTitle" />
 
 
         <View
             android:id="@+id/VWTransferTransactionFriendSpinnerSeparator"
-            android:background="@color/bubble0ColorDark"
-            android:layout_width = "match_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_centerVertical ="true"
             android:layout_alignParentTop="true"
-            app:layout_constraintTop_toBottomOf="@+id/SPTransferTransactionGroupFriendList"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            />
+            android:background="@color/bubble0ColorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SPTransferTransactionGroupFriendList" />
 
         <Button
             android:id="@+id/BTNTransferTransaction"
@@ -114,7 +133,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/VWTransferTransactionFriendSpinnerSeparator" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

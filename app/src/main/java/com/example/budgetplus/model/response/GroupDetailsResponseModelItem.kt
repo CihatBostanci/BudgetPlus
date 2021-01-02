@@ -2,34 +2,29 @@ package com.example.budgetplus.model.response
 
 
 import com.google.gson.annotations.SerializedName
-
+import java.io.Serializable
 
 data class GroupDetailsResponseModelItem(
     @SerializedName("adminId")
     var adminId: Int,
+    @SerializedName("budget")
+    var budget: Int,
+    @SerializedName("currency")
+    var currency: String,
     @SerializedName("description")
-    var description: String?,
+    var description: String,
+    @SerializedName("expenseCategories")
+    var expenseCategories: MutableList<ExpenseCategory>,
+    @SerializedName("expenseGroup")
+    var expenseGroup: ExpenseGroup,
     @SerializedName("groupId")
     var groupId: Int,
     @SerializedName("name")
-    var name: String?,
+    var name: String,
     @SerializedName("shareCode")
-    var shareCode: String?,
+    var shareCode: String,
     @SerializedName("transactionInfos")
-    var transactionInfos: MutableList<TransactionInfo> ,
+    var transactionInfos: MutableList<TransactionInfo>,
     @SerializedName("userInfos")
-    var userInfos: MutableList<UserInfo>,
-    @SerializedName("expenseGroup")
-    var expenseGroup: ExpenseGroup,
-    @SerializedName("currency")
-    var currency: String,
-    @SerializedName("budget")
-    var budget: String
-){
-    override fun toString(): String {
-        return "GroupDetailsResponseModelItem(adminId=$adminId, description=$description, " +
-                "groupId=$groupId, name=$name, shareCode=$shareCode," +
-                " transactionInfos=$transactionInfos, userInfos=$userInfos, " +
-                "expenseGroup=$expenseGroup, currency='$currency', budget='$budget')"
-    }
-}
+    var userInfos: MutableList<UserInfo>
+) : Serializable
