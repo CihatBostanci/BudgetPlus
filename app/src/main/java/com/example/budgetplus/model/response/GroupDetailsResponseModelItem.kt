@@ -27,4 +27,9 @@ data class GroupDetailsResponseModelItem(
     var transactionInfos: MutableList<TransactionInfo>,
     @SerializedName("userInfos")
     var userInfos: MutableList<UserInfo>
-) : Serializable
+) : Serializable {
+
+    override fun toString(): String {
+        return "GroupDetailsResponseModelItem(adminId=$adminId, budget=$budget, currency='$currency', description='$description', expenseCategories=$expenseCategories, expenseGroup=$expenseGroup, groupId=$groupId, name='$name', shareCode='$shareCode', transactionInfos=$transactionInfos, userInfos=$userInfos)"
+    }
+}

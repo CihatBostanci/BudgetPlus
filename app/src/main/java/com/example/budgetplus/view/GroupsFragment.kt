@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.os.bundleOf
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -16,9 +18,11 @@ import com.example.budgetplus.MainActivity
 import com.example.budgetplus.R
 import com.example.budgetplus.databinding.FragmentGroupsBinding
 import com.example.budgetplus.model.response.GroupDetailsResponseModel
+import com.example.budgetplus.model.response.GroupDetailsResponseModelItem
 import com.example.budgetplus.model.response.UserInfoResponseModel
 import com.example.budgetplus.utils.*
 import com.example.budgetplus.view.adapter.GroupsAdapterWithViewPager
+import com.example.budgetplus.view.adapter.GroupsViewHolder
 import com.example.budgetplus.viewmodel.AccountViewModel
 import com.example.budgetplus.viewmodel.GroupViewModel
 import com.example.budgetplus.viewmodel.SocketViewModel
@@ -47,6 +51,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
     private val GROUPSFRAGMENTTAG = "GROUPSTAG"
 
+
     //For MVVM ViewModel
     private lateinit var accountViewModel: AccountViewModel
     private lateinit var groupViewModel: GroupViewModel
@@ -65,7 +70,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     private var groupDetailsResponseModelLiveData = MutableLiveData<GroupDetailsResponseModel>()
 
     //adapter
-    private val adapterWithViewPager = GroupsAdapterWithViewPager()
+    private lateinit var  adapterWithViewPager :GroupsAdapterWithViewPager
 
     //Hub Connection
     private var hubConnection = MutableLiveData<HubConnection>()
@@ -128,7 +133,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
         (requireActivity() as MainActivity).setBottomNavigationVisibility(viewVisible = true)
 
-
+        adapterWithViewPager = GroupsAdapterWithViewPager()
         _userInfoTransferViewModel._userInfoResponseModel.observe(
             viewLifecycleOwner,
             _userInfoObserver
@@ -137,7 +142,9 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
             viewLifecycleOwner,
             _groupDetailsObserver
         )
+
         setViewPagerAdapter()
+
 
         //Set Click Listeners
         binding.BTNJoinGroup.setOnClickListener(this)
@@ -147,6 +154,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         binding.FABCreateAGroupAction.setOnClickListener(this)
         binding.FABAddExpenseAction.setOnClickListener(this)
         binding.FABShareLinkAction.setOnClickListener(this)
+        binding.IWGroupDetailActionForVP.setOnClickListener(this)
 
 
     }
@@ -155,7 +163,8 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
             {
-                adapterWithViewPager.setItem(it)
+                groupDetailsResponseModelNonNull->
+                adapterWithViewPager.setItem(groupDetailsResponseModelNonNull)
                 binding.VPForGroup.adapter = adapterWithViewPager
             })
 
@@ -256,8 +265,15 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
                 binding.FABCreateAGroupAction.id -> addGroupAction()
                 binding.FABAddExpenseAction.id -> addExpenseAction()
                 binding.FABShareLinkAction.id -> shareLinkAction()
+                binding.IWGroupDetailActionForVP.id-> groupDetailAction()
             }
         }
+    }
+
+    //Actions
+    private fun groupDetailAction() {
+       groupDetailsResponseModelLiveData.observe(viewLifecycleOwner, _groupDetailActionObserver)
+
     }
 
     private fun transferTransactionAction() {
@@ -334,4 +350,13 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         hubConnection.postValue(it)
     }
 
+    private val _groupDetailActionObserver = Observer<GroupDetailsResponseModel>{
+
+        Log.d(GROUPSFRAGMENTTAG, it[binding.VPForGroup.currentItem].toString())
+        val currentDetailItem = it[binding.VPForGroup.currentItem]
+        val actionBundle = bundleOf(
+            GROUP_DETAIL_ACTION_INFO to currentDetailItem
+        )
+        navController.navigate(R.id.action_groupsFragment_to_groupDetailFragment, actionBundle)
+    }
 }

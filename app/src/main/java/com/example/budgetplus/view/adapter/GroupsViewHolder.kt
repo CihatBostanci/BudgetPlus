@@ -23,14 +23,14 @@ class GroupsViewHolder constructor(itemView: View) :
     constructor(parent: ViewGroup) :
             this(LayoutInflater.from(parent.context).inflate(R.layout.groups_item, parent, false))
 
-    fun bind(groupInfo: GroupDetailsResponseModelItem) {
+    fun bind(
+        groupInfo: GroupDetailsResponseModelItem,
+    ) {
 
-
-        if (groupInfo != null && groupInfo.expenseGroup!=null
+        if (groupInfo != null && groupInfo.expenseGroup != null
             && groupInfo.expenseGroup.groupedExpenses != null
             && groupInfo.expenseGroup.groupedExpenses.size >= 1
         ) {
-
             val anyChart = itemView.AAChartView as AnyChartView
             itemView.CLGroupInfoTitle.show()
             itemView.CLIfNoExpense.hide()
