@@ -191,8 +191,10 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
                 .observe(viewLifecycleOwner, _createAGroupObserver)
     }
 
-    private fun groupNameValidation(): Boolean {
+
+    private fun checkGroupValidation(): Boolean {
         var validationFlag = true
+
 
         if (binding.ETGroupName.text.toString().isEmpty()) {
             binding.TILCreateAGroupName.error = GROUP_NAME_ERROR_MESSAGE
@@ -201,20 +203,20 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         } else {
             binding.TILCreateAGroupName.isErrorEnabled = false
         }
-        return validationFlag
-    }
 
-    private fun checkGroupValidation(): Boolean {
-        var validationFlag = true
-
-        if (!groupNameValidation()) return false
-
-        if (binding.ETAddExpenseDescription.text.toString().isEmpty()) {
+        if (binding.ETCreateAGroupDescription.text.toString().isEmpty()) {
             binding.TILCreateAGroupDescription.error = GROUP_DESCRIPTION_ERROR_MESSAGE
             validationFlag = false
             return validationFlag
         } else {
             binding.TILCreateAGroupDescription.isErrorEnabled = false
+        }
+        if(binding.ETCreateAGroupBudget.text.toString().isEmpty()){
+            binding.TILCreateAGroupBudget.error = GROUP_BUDGET_ERROR_MESSAGE
+            validationFlag = false
+            return validationFlag
+        } else {
+            binding.TILCreateAGroupBudget.isErrorEnabled = false
         }
 
         return validationFlag

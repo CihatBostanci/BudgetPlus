@@ -1,6 +1,6 @@
 package com.example.budgetplus.view
 
-import android.graphics.Color
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -88,13 +88,12 @@ class GroupDetailFragment : BaseFragment(),View.OnClickListener {
 
         binding.CVGroupDetailSendTransferItem.setOnClickListener(this)
 
-        binding.CVGroupDetailInfoTitle.setOnTouchListener(OnTouchListener { v, event ->
+        binding.CLGroupDetailInfoTitle.setOnTouchListener(OnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                binding.CVGroupDetailInfoTitle.setCardBackgroundColor(requireContext().getColor(R.color.backgroundLightColor))
+                binding.CLGroupDetailInfoTitle.setBackgroundColor(requireContext().getColor(R.color.backgroundLightColor))
                 return@OnTouchListener true
             } else {
-                binding.CVGroupDetailInfoTitle.setCardBackgroundColor(requireContext().getColor(R.color.colorPrimary))
-
+                binding.CLGroupDetailInfoTitle.setBackgroundColor(requireContext().getColor(R.color.colorPrimary))
             }
             false
         })

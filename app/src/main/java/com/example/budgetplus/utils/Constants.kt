@@ -108,6 +108,8 @@ const val GROUP_DETAIL_ACTION_INFO = "GROUPDETAILINFO"
 //*****************CREATE A GROUP ERROR MESSAGE*********************
 const val GROUP_DESCRIPTION_ERROR_MESSAGE= "Group Description cannot empty"
 const val GROUP_NAME_ERROR_MESSAGE= "Group Name cannot empty"
+const val GROUP_BUDGET_ERROR_MESSAGE= "Group Name cannot empty"
+
 
 
 //****************Add Expense*********************

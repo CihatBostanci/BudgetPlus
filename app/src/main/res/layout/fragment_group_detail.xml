@@ -5,22 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.GroupDetailFragment"
-    android:background="@color/backgroundGrayColor">
+    android:background="@color/backgroundGrayColor"
 
+    >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/whiteCardColor"
-
         >
-
         <androidx.cardview.widget.CardView
             android:id="@+id/CVGroupDetailInfoTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="10dp"
-            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="20dp"
+            android:layout_marginTop="5dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +30,8 @@
                 android:id="@+id/CLGroupDetailInfoTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+
 
                 >
 
@@ -54,7 +55,7 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/whiteCardColor"
+                android:background="@color/transparent"
                 android:padding="5dp"
                 android:layout_marginTop="10dp"
                 android:stretchColumns="0,1"
