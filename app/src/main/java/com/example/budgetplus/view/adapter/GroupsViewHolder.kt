@@ -49,13 +49,14 @@ class GroupsViewHolder constructor(itemView: View) :
                 pie.title(it)
                 pie.legend().title().enabled(true)
                 pie.title()
+                    .fontFamily("opensans")
+                    .fontStyle("italic")
                     .fontSize("35")
                     .fontColor("#4a154b")
 
                 groupInfo.description?.let { description ->
                     pie.legend().title()
                         .text(description)
-                        .fontStyle("italic")
                         .padding(0.0, 0.0, 10.0, 0.0)
                 }
                 pie.labels().position("outside")

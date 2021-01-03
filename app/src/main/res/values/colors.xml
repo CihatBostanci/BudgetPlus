@@ -9,7 +9,7 @@
     <color name="loginBkColor">#f0f0f0</color>
 
     <!--colros for card-->
-    <color name="whiteCardColor">#fff</color>
+    <color name="whiteCardColor">#ffffff</color>
     <color name="verificationBackGroundColor">#0288d1</color>
     <color name="verificationBackGroundEditTextColor">#e3f2fd</color>
     <color name="black">#000000</color>

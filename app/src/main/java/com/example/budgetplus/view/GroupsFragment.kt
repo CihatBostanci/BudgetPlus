@@ -150,7 +150,6 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
         binding.BTNJoinGroup.setOnClickListener(this)
         binding.BTNSendGroup.setOnClickListener(this)
 
-        binding.BTNTransferTransaction.setOnClickListener(this)
         binding.FABCreateAGroupAction.setOnClickListener(this)
         binding.FABAddExpenseAction.setOnClickListener(this)
         binding.FABShareLinkAction.setOnClickListener(this)
@@ -253,7 +252,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         v?.let {
             when (it.id) {
-                binding.BTNTransferTransaction.id -> transferTransactionAction()
+
                 binding.BTNJoinGroup.id -> {
                     groupName = binding.ETJoinGroup.text.toString()
                     setJoinGroup(groupName)
@@ -276,20 +275,7 @@ class GroupsFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun transferTransactionAction() {
-        Log.d(GROUPSFRAGMENTTAG, "send transfer pressed")
-        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
-            {
-                val currentDetailItem = it[binding.VPForGroup.currentItem]
-                val actionBundle = bundleOf(
-                    TRANSFER_GROUPS_FRIEND_LIST to currentDetailItem
-                )
-                navController.navigate(
-                    R.id.action_groupsFragment_to_transactionTransferModalBottomSheetFragment,
-                    actionBundle
-                )
-            })
-    }
+
 
     private fun shareLinkAction() {
         Log.d(GROUPSFRAGMENTTAG, "share Link pressed")

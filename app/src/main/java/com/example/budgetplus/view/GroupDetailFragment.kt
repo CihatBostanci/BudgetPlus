@@ -1,18 +1,25 @@
 package com.example.budgetplus.view
 
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.budgetplus.R
 import com.example.budgetplus.databinding.FragmentGroupDetailBinding
-import com.example.budgetplus.databinding.FragmentLoginBinding
 import com.example.budgetplus.model.response.GroupDetailsResponseModelItem
 import com.example.budgetplus.utils.GROUP_DETAIL_ACTION_INFO
 import com.example.budgetplus.utils.TRANSFER_GROUPS_FRIEND_LIST
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,13 +31,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [GroupDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GroupDetailFragment : BaseFragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class GroupDetailFragment : BaseFragment(),View.OnClickListener {
+
+    private val GROUPDETAILTAG= "GroupDetailTAG"
 
     private var groupDetailsResponseModelLiveData =
         MutableLiveData<GroupDetailsResponseModelItem?>()
+
+    //Navigation Component controller
+    private lateinit var navController: NavController
 
     //View Binding
     // This property is only valid between onCreateView and
@@ -66,15 +75,30 @@ class GroupDetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = Navigation.findNavController(view)
         setUIInit()
     }
 
     private fun setUIInit() {
         groupDetailsResponseModelLiveData.observe(viewLifecycleOwner, Observer {
-            if (it!=null){
+            if (it != null) {
                 binding.TWGroupDetailTitle.text = it.name
             }
         })
+
+        binding.CVGroupDetailSendTransferItem.setOnClickListener(this)
+
+        binding.CVGroupDetailInfoTitle.setOnTouchListener(OnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                binding.CVGroupDetailInfoTitle.setCardBackgroundColor(requireContext().getColor(R.color.backgroundLightColor))
+                return@OnTouchListener true
+            } else {
+                binding.CVGroupDetailInfoTitle.setCardBackgroundColor(requireContext().getColor(R.color.colorPrimary))
+
+            }
+            false
+        })
+
     }
 
     companion object {
@@ -95,5 +119,28 @@ class GroupDetailFragment : BaseFragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onClick(v: View?) {
+        v?.let {
+            when(v.id){
+                binding.CVGroupDetailSendTransferItem.id -> transferTransactionAction()
+            }
+        }
+    }
+
+    private fun transferTransactionAction() {
+        Log.d(GROUPDETAILTAG, "send transfer pressed")
+        groupDetailsResponseModelLiveData.observe(viewLifecycleOwner,
+            {
+                val currentDetailItem = it
+                val actionBundle = bundleOf(
+                    TRANSFER_GROUPS_FRIEND_LIST to currentDetailItem
+                )
+                navController.navigate(
+                    R.id.action_groupDetailFragment_to_transactionTransferModalBottomSheetFragment,
+                    actionBundle
+                )
+            })
     }
 }

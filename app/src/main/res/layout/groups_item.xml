@@ -9,17 +9,19 @@
         android:id="@+id/CLIfNoExpense"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/whiteCardColor"
         android:visibility="gone">
 
         <TextView
             android:id="@+id/TWGroupTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/opensanssemibolditalic"
+            android:fontFamily="@font/opensansitalic"
             android:gravity="top|center"
             android:text="Group Name"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="35sp"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +35,7 @@
             android:gravity="top|center"
             android:text="There is no expense"
             android:textColor="@color/errorColor"
-            android:textSize="25sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +47,7 @@
         android:id="@+id/CLGroupInfoTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="5dp"
+        android:background="@color/whiteCardColor"
         android:visibility="gone">
 
         <com.anychart.AnyChartView
@@ -55,15 +57,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <ImageView
-            android:id="@+id/IWGroupDetailAction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_baseline_more_horiz_24"
-            app:layout_constraintTop_toBottomOf="@+id/AAChartView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

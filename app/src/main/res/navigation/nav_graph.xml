@@ -32,9 +32,6 @@
             android:id="@+id/action_groupsFragment_to_modalBottomSheetFragment"
             app:destination="@id/ModalBottomSheetFragment" />
         <action
-            android:id="@+id/action_groupsFragment_to_transactionTransferModalBottomSheetFragment"
-            app:destination="@id/transactionTransferModalBottomSheetFragment" />
-        <action
             android:id="@+id/action_groupsFragment_to_groupDetailFragment"
             app:destination="@id/groupDetailFragment" />
     </fragment>
@@ -93,5 +90,9 @@
         android:id="@+id/groupDetailFragment"
         android:name="com.example.budgetplus.view.GroupDetailFragment"
         android:label="fragment_group_detail"
-        tools:layout="@layout/fragment_group_detail" />
+        tools:layout="@layout/fragment_group_detail" >
+        <action
+            android:id="@+id/action_groupDetailFragment_to_transactionTransferModalBottomSheetFragment"
+            app:destination="@id/transactionTransferModalBottomSheetFragment" />
+    </fragment>
 </navigation>
