@@ -2,7 +2,6 @@ package com.example.budgetplus.repository
 
 import android.util.Log
 import com.example.budgetplus.utils.connectionHubUrl
-import com.example.budgetplus.view.BASETAG
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import java.lang.Exception

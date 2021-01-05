@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.budgetplus.view.LoginFragment"
+        android:name="com.example.budgetplus.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/groupsFragment"
-        android:name="com.example.budgetplus.view.GroupsFragment"
+        android:name="com.example.budgetplus.groups.GroupsFragment"
         android:label="fragment_groups"
         tools:layout="@layout/fragment_groups">
         <action
@@ -37,22 +37,22 @@
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.example.budgetplus.view.NotificationFragment"
+        android:name="com.example.budgetplus.notification.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification"/>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.budgetplus.view.AccountFragment"
+        android:name="com.example.budgetplus.account.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account"/>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.example.budgetplus.view.ForgetPasswordFragment"
+        android:name="com.example.budgetplus.forgetpassword.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" />
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.budgetplus.view.SignUpFragment"
+        android:name="com.example.budgetplus.signup.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/verificationCodeFragment"
-        android:name="com.example.budgetplus.view.VerificationCodeFragment"
+        android:name="com.example.budgetplus.verificationcode.VerificationCodeFragment"
         android:label="fragment_verification_code"
         tools:layout="@layout/fragment_verification_code" >
         <action
@@ -78,17 +78,17 @@
     <action android:id="@+id/action_global_accountFragment" app:destination="@id/accountFragment" />
     <dialog
         android:id="@+id/ModalBottomSheetFragment"
-        android:name="com.example.budgetplus.view.ModalBottomSheetFragment"
+        android:name="com.example.budgetplus.modalbottomsheet.ModalBottomSheetFragment"
         android:label="fragment_modal_bottom_sheet"
         tools:layout="@layout/fragment_modal_bottom_sheet" />
     <dialog
         android:id="@+id/transactionTransferModalBottomSheetFragment"
-        android:name="com.example.budgetplus.view.TransactionTransferModalBottomSheetFragment"
+        android:name="com.example.budgetplus.transactionmodalbottomsheet.TransactionTransferModalBottomSheetFragment"
         android:label="fragment_transaction_transfer_modal_bottom_sheet"
         tools:layout="@layout/fragment_transaction_transfer_modal_bottom_sheet" />
     <fragment
         android:id="@+id/groupDetailFragment"
-        android:name="com.example.budgetplus.view.GroupDetailFragment"
+        android:name="com.example.budgetplus.groupdetail.GroupDetailFragment"
         android:label="fragment_group_detail"
         tools:layout="@layout/fragment_group_detail" >
         <action

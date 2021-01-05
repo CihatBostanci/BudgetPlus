@@ -38,4 +38,6 @@
         <item>USD</item>
     </string-array>
 
+    <string name="alertMessageCheckConnection">Internet Bağlantınızı kontrol ediniz.</string>
+
 </resources>

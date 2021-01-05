@@ -1,6 +1,5 @@
 package com.example.budgetplus.model.request
 
-import android.provider.ContactsContract
 import com.google.gson.annotations.SerializedName
 
 data class RegisterRequestBodyModel (

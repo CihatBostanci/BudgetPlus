@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_splash_scene"
     android:background="@color/backgroundColor"
-    tools:context=".SplashActivity">
+    tools:context=".splash.SplashActivity">
 
     <ImageView
         android:id="@+id/IWPlusLogo"

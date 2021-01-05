@@ -1,7 +1,6 @@
 package com.example.budgetplus.utils
 
 import com.example.budgetplus.model.HTTPErrorModel
-import com.example.budgetplus.model.response.LoginSuccessResponseModel
 import retrofit2.HttpException
 import java.util.regex.Matcher
 import java.util.regex.Pattern
