@@ -84,9 +84,6 @@ const val RESET_PASSWORD_SERVICE = "/Password/Reset"
 //User Service Constant
 const val GET_USER_INFO_SERVICE = "/User/Info"
 
-
-
-
 //Group Service Constant
 const val GET_GROUP_DETAILS_SERVICE = "/Group/Details"
 const val ADD_GROUP_SERVICE = "/Group/Add"
@@ -96,8 +93,8 @@ const val DETAIL_GROUP = "/Group/Detail"
 const val ADD_CATEGORY_GROUP = "/Group/Category/Add"
 
 //Transaction Service Constant
-const val  ADD_EXPENSE = "/Transaction/AddExpense"
-const val  ADD_TRANSFER = "/Transaction/AddTransfer"
+const val  ADD_EXPENSE = "/Transaction/Expense"
+const val  ADD_TRANSFER = "/Transaction/Transfer"
 
 //*****************SERVICE MESSAGE****************************
 const val SUCCESS_MESSAGE = "Success"
