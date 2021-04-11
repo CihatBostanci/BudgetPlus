@@ -65,16 +65,35 @@ const val TOKEN = "token"
 const val REGISTER_SERVICE = "/Account/Register"
 const val LOGIN_SERVICE=  "/Account/Login"
 const val AUTHENTICATE_SERVICE = "/Account/Authenticate"
-const val CONFIRM_EMAIL_SERVICE = "/Account/ConfirmEmail"
-const val UPDATE_VERIFICATION_SERVICE = "/Account/UpdateVerificationCode"
-const val RESET_PASSWORD_SERVICE = "/Account/ResetPasswordRequest"
-const val CHANGE_PASSWORD_SERVICE = "/Account/ChangePassword"
-const val CONTROL_RESET_CODE_SERVICE = "/Account/ControlResetCode"
-const val GET_USER_INFO_SERVICE = "/Account/GetUserInfos"
+
+//Email Verification Service Constant
+const val CONFIRM_EMAIL_SERVICE = "/EmailVerification/Confirm"
+const val UPDATE_VERIFICATION_SERVICE = "/EmailVerification/Update"
+
+//Join Request Service Constant
+const val JOIN_REQUEST_SEND_SERVICE = "/JoinRequest/Send"
+const val JOIN_REQUEST_REPLY_SERVICE = "/JoinRequest/Reply"
+
+
+//Password Service Constant
+const val CHANGE_PASSWORD_SERVICE = "/Password/Change"
+const val CONTROL_RESET_CODE_SERVICE = "/Password/Control"
+const val RESET_PASSWORD_SERVICE = "/Password/Reset"
+
+
+//User Service Constant
+const val GET_USER_INFO_SERVICE = "/User/Info"
+
+
+
 
 //Group Service Constant
-const val GET_GROUP_DETAILS_SERVICE = "/Group/GetGroupDetails"
+const val GET_GROUP_DETAILS_SERVICE = "/Group/Details"
 const val ADD_GROUP_SERVICE = "/Group/Add"
+const val JOIN_REQUEST_GROUP_SERVICE= "/Group/JoinRequests"
+const val USERS_GROUP =  "/Group/Users"
+const val DETAIL_GROUP = "/Group/Detail"
+const val ADD_CATEGORY_GROUP = "/Group/Category/Add"
 
 //Transaction Service Constant
 const val  ADD_EXPENSE = "/Transaction/AddExpense"
