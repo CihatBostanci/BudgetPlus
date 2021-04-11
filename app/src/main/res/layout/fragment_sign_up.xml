@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:focusableInTouchMode="true"
-    tools:context=".view.SignUpFragment">
+    tools:context=".signup.SignUpFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

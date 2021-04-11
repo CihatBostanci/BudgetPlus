@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AccountFragment">
+    android:background="@color/backgroundGrayColor"
+    tools:context=".account.AccountFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,19 +15,124 @@
             android:id="@+id/TWAccountTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AccountFragment"
+            android:text="Account Settings"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="20dp"
+            android:textColor="@color/backgroundColor"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:fontFamily="@font/opensansextrabolditalic"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <Button
-            android:id="@+id/BTNLogout"
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/CVShowProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="Logout"
+            android:layout_margin="20dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="10dp"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TWAccountTitle"
-           />
+
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
+                <ImageView
+                    android:id="@+id/IWAccountProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_person_24"
+                    android:padding="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    >
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Show Profile"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/opensansitalic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/IWAccountProfile"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/CVChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:background="@drawable/cardviewshape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CVShowProfile"
+
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
+                <ImageView
+                    android:id="@+id/IWAccountPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_vpn_key_24"
+                    android:padding="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Change Password"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/opensansitalic"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/IWAccountPassword"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/BTNLogout"
+            style="@style/loginButton"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/loginViewsMargin"
+            android:text="@string/logout"
+            app:layout_constraintTop_toBottomOf="@+id/CVChangePassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_marginBottom="?android:attr/actionBarSize"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

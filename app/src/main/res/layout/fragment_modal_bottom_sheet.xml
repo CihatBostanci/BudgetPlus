@@ -7,7 +7,7 @@
     android:clipToPadding="false"
     android:paddingTop="10dp"
     android:paddingBottom="?android:attr/actionBarSize"
-    tools:context=".view.ModalBottomSheetFragment"
+    tools:context=".modalbottomsheet.ModalBottomSheetFragment"
 
     >
 

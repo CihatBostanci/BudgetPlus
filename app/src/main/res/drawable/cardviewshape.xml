@@ -8,7 +8,7 @@
         android:angle="45"
         android:centerX="35%"
         android:startColor="@color/whiteCardColor"
-        android:endColor="@color/whiteCardColor"
+        android:endColor="@color/backgroundGrayColor"
         android:type="linear"
         />
     <size

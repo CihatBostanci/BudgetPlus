@@ -239,7 +239,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         adapter?.let { adapterNonNull ->
             for (i in adapterNonNull.retriveList())
                 if (i.isSelected && i.userId != 0)
-                    bodyList.add(i.userId)
+                    i.userId?.let { bodyList.add(it) }
 
         }
         return bodyList
